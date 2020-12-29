@@ -223,8 +223,7 @@ Hides ores from x-rayers. For detailed configuration of this feature check out
 <a href="https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e">Stonar96's recommended settings</a>.
 
 <h2>Java startup flags</h2>
-Paper and its forks in upcoming version 1.17 will require Java 11 (LTS) or higher, good resolution 2021 to finally update your version of Java!
-(or at least inform your host so they can handle the migration).
+<a href="https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615">Paper and its forks in upcoming version 1.17 will require Java 11 (LTS) or higher</a>. Good resolution 2021 to finally update your version of Java!(or at least inform your host so they can handle the migration).
 JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find
 startup flags optimized for minecraft servers <a href="https://mcflags.emc.gs/">here</a>.
 
