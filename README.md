@@ -23,7 +23,7 @@ My recommendation is:
 </ul>
 You shoud stay away from:
 <ul>
-<li>Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - Messy, tossed salad of people that haven't even really understood the patch system. - <a href="https://github.com/KennyTV/list-of-shame">KennyTV's list of shame</a>.</li>
+<li>Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - Messy, tossed salad of people that haven't even really understood the patch system and destroys functionality of some of these forks. - <a href="https://github.com/KennyTV/list-of-shame">KennyTV's list of shame</a>.</li>
 <li>Any paid server jar that claims async anything</li>
 </ul>
 
