@@ -242,3 +242,30 @@ and remove items than that items if they would be left alone doesn't help either
 It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all
 due to server constantly trying to spawn more mobs. Only "acceptable" use case is spawner mobs on servers with large amount of spawners.
 </p>
+
+<h2>What's lagging? - measuring performance</h2>
+<h3>mspt</h3>
+<p>
+Paper offers a `/mspt` command that will tell you how much time server took to calculate recent ticks. If the first and 
+second value you see are lower than 50, then congratulations! Your server is not lagging! If third value is over 50 it 
+means there was at least 1 tick that took longer, that's completely normal and happens from time to time, don't panic.
+</p>
+<h3>timings</h3>
+<p>
+Great way to see what might be going on when your server is lagging are timings. Timings is a tool that lets you see 
+exactly what tasks are taking the longest. It's the most basic troubleshooting tool and if you ask for help regarding 
+lag you will most likely be asked for your timings.
+</p>
+<p>
+To get timings of your server you just need to execute `/timings paste` command and click the link you're provided with.
+You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're 
+doing. There is a detailed <a href="https://www.youtube.com/watch?v=T4J0A9l7bfQ">video tutorial by Aikar</a> on how to 
+read them.
+</p>
+
+<h3>spark</h3>
+<p>
+ <a href="https://github.com/lucko/spark">Spark</a> is a plugin that allows you to profile your servers CPU and memory usage.
+ You can read on how to use it <a href="https://github.com/lucko/spark/wiki/Commands">on its wiki</a>.
+</p>
+
