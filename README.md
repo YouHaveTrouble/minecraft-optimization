@@ -31,7 +31,7 @@ You shoud stay away from:
 <p>
 Map pregeneration is one of the most important steps to have lag-free server. 
 In modern versions chunk generation is extremely slow and even servers on best 
-hardware can grind into a halt. You can use plugin such as <a href="https://www.spigotmc.org/resources/chunky.81534/">chunky</a>
+hardware can grind into a halt. You can use plugin such as <a href="https://github.com/pop4959/Chunky">chunky</a>
 to pregenerate the world. Remember to also set up a world border so your players don't generate new chunks while the server is open to the public!
 Pregeneration of the map can take hours (it depends on a radius you set in the pregen plugin).
 </p>
@@ -225,3 +225,19 @@ Hides ores from x-rayers. For detailed configuration of this feature check out
 <h2>Java startup flags</h2>
 JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find
 startup flags optimized for minecraft servers <a href="https://mcflags.emc.gs/">here</a>.
+
+<h2>"Performance" plugins</h2>
+
+<h3>Plugins removing ground items</h3>
+<p>
+Absolutely unnecessary, can be replaced with spigot configuration 
+(see <a href="https://github.com/YouHaveTrouble/minecraft-optimization#merge-radius">merge radius</a> and <a href="https://github.com/YouHaveTrouble/minecraft-optimization#alt-item-despawn-rateenabled">alt-item-despawn-rate</a>)
+and frankly, they're less configurable than basic server configs. The fact that they usually use more resources to scan 
+and remove items than that items if they would be left alone doesn't help either.
+</p>
+
+<h3>Mob stacker plugins</h3>
+<p>
+It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all
+due to server constantly trying to spawn more mobs. Only "acceptable" use case is spawner mobs on servers with large amount of spawners.
+</p>
