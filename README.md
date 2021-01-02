@@ -137,6 +137,15 @@ Slows down incremental world saving spreading the task over time even more for b
 to set this higher with more than 20-30 players, because if incremental save can't finish in time bukkit will automatically
 save leftover chunks at once and begin the process again.
 
+<h4>per-player-mob-spawns</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+By default mob limits are counted for the entire server which means mobs might end up being distributed unevenly between 
+online players. This option enables per-player mob limits, meaning all players can get approximately the same number of 
+mobs around them regardless of number of online players. Enabling this option also allows you to lower `spawn-limits` in 
+`bukkit.yml` since those are optimized for per-server mob limits.
+
 <h4>optimize-explosions</h4>
 <b>default:</b> false<br>
 <b>optimized:</b> true<br>
