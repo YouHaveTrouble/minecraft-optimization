@@ -24,7 +24,8 @@ My recommendation is:
 You shoud stay away from:
 <ul>
 <li>Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - Messy, tossed salad of people that haven't even really understood the patch system and destroys functionality of some of these forks. - <a href="https://github.com/KennyTV/list-of-shame">KennyTV's list of shame</a>.</li>
-<li>Any paid server jar that claims async anything</li>
+<li>Any paid server jar that claims async anything - 99.99% of being a scam.</li>
+<li>Bukkit/Craftbukkit/Spigot - Extremely outdated and not up to par with paper+ performance.</li>
 </ul>
 
 <h2>Map pregen</h2>
