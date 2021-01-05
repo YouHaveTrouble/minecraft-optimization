@@ -225,6 +225,14 @@ far away.
 This allows players to see further without ticking as many chunks as regular view-distance would. Although it's not really
 heavy on the server keep in mind that sending more chunks will affect bandwidth.
 
+<h4>projectile-load-save-per-chunk-limit</h4>
+<b>default:</b> -1<br>
+<b>optimized:</b> 8<br>
+<b>explanation:</b><br>
+Limits the amount of projectiles that can be saved in a chunk. This prevents issues that arise with lower view-distance
+like players throwing massive amounts of snowballs into unloaded chunk that has a potential to crash your server on 
+loading of that chunk.
+
 <h4>anti-xray.enabled</h4>
 <b>default:</b> false<br>
 <b>optimized:</b> true<br>
