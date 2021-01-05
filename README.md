@@ -232,6 +232,51 @@ heavy on the server keep in mind that sending more chunks will affect bandwidth.
 Hides ores from x-rayers. For detailed configuration of this feature check out 
 <a href="https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e">Stonar96's recommended settings</a>.
 
+<hr>
+<h3>purpur.yml</h3>
+Only applicable for purpur.
+
+<h4>use-alternate-keepalive</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Alternate system for keepalive packets so players with bad connection don't get timed out as often.
+
+<h4>dont-send-useless-entity-packets</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Prevent the server from sending empty position change packets (by default server sends move packet for each entity
+even if the entity hasn't moved)
+
+<h4>gameplay-mechanics.player.teleport-if-outside-border</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Teleport the player to the world spawn if they happen to be outside of the world border. This will help, because vanilla
+world border is bypassable and the damage it does to the player can be mitigated.
+
+<h4>gameplay-mechanics.player.entities-can-use-portals</h4>
+<b>default:</b> true<br>
+<b>optimized:</b> false<br>
+<b>explanation:</b><br>
+Disables portal usage of all entities besides player. This potentially fixes a dupe* and prevents entities changing 
+worlds loading chunks on main thread.<br>
+*more sources needed.
+
+<h4>mobs.dolphin.disable-treasure-searching</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Prevents dolphins from performing structure search similiar to the one that treasure maps do.
+
+<h4>mobs.zombie.aggressive-towards-villager-when-lagging</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Zombies stop targetting villagers when tps is under lag treshold. This saves the server precious time of calculating 
+paths for zombies that are not targetting players.
+
 <h2>Java startup flags</h2>
 <a href="https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615">Paper and its forks in upcoming version 1.17 will require Java 11 (LTS) or higher</a>. Good resolution 2021 to finally update your version of Java!(or at least inform your host so they can handle the migration).
 JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find
