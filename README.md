@@ -58,11 +58,12 @@ localhost or the same datacenter (<2 ms ping), disabling this (-1) will be benef
 <h3>bukkit.yml</h3>
 
 <h4>spawn-limits</h4>
-<b>default:</b> monsters:70, animals:10, water-animals:15, ambient:15<br>
-<b>optimized:</b> monsters:45, animals:8, water-animals:3, ambient:1<br>
+<b>default:</b> monsters:70, animals:10, water-animals:15, water-ambient:20, ambient:15<br>
+<b>optimized:</b> monsters:12, animals:5, water-animals:2, water-ambient:2, ambient:0<br>
 <b>explanation:</b><br>
 Lower values mean less mobs. Less mobs is less lag in general, but you want to balance it with player quality of life,
-finding mobs in the world is big part of gameplay. More detailed explanation of how limits are calculated can be found in <a href="https://www.spigotmc.org/attachments/bukkit-spawn-limits-pdf.444347/">this pdf</a>.
+finding mobs in the world is big part of gameplay. With <a href="https://github.com/YouHaveTrouble/minecraft-optimization#per-player-mob-spawns">per-player-mob-spawns</a>
+those numbers represent basically 1:1 limit of mobs in the given category per player, so mob cap math is `playercount*limit`.
 
 <h4>chunk-gc.period-in-ticks</h4>
 <b>default:</b> 600<br>
