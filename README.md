@@ -75,11 +75,11 @@ those numbers represent basically 1:1 limit of mobs in the given category per pl
 <b>explanation:</b><br>
 This decides how often vacant chunks are unloaded. Ticking fewer chunks means less TPS consumption.
 
-<h4>ticks-per.monster-spawns</h4>
-<b>default:</b> 1<br>
-<b>optimized:</b> 4<br>
+<h4>ticks-per</h4>
+<b>default:</b> monster-spawn: 1, animal-spawns: 400, water-spawns: 1, ambient-spawns: 1, water-ambient-spawns: 1 <br>
+<b>optimized:</b>  monster-spawn: 10, animal-spawns: 400, water-spawns: 40, ambient-spawns: 40, water-ambient-spawns: 40<br>
 <b>explanation:</b><br>
-This sets how often (in ticks) the server attempts to spawn a monster. Slighty increasing the time between spawns should not impact spawn rates.
+This sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed fast. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms.
 
 <hr>
 <h3>spigot.yml</h3>
