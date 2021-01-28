@@ -1,7 +1,7 @@
 
 <h1>Minecraft server optimization guide</h1>
 
-<p>Guide for version 1.16.4</p>
+<p>Guide for version 1.16.5</p>
 <p>Based on <a href="https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/">this guide</a> and other sources (all of them are linked throughout the guide when relevant).</p>
 
 <h2>Intro</h2>
@@ -40,6 +40,10 @@ Pregeneration of the map can take hours (it depends on a radius you set in the p
 It's key to remember that overworld, nether and the end have separate world borders and you have to set it up for each world.
 Remember that nether dimension is usually 8x smaller than overworld, because if you set worldborder wrong your players might end up
 outside of world border!
+</p>
+<p>
+<b>Make sure to set up vanilla world border (`/worldborder set [radius]`), as it limits certain functionalities such as 
+lookup range for treasure maps that can cause lag spikes.</b>
 </p>
 
 <h2>Configurations</h2>
@@ -216,8 +220,15 @@ etc. to the list and make them despawn after ~20 seconds (400 ticks).
 <b>default:</b> true<br>
 <b>optimized:</b> false<br>
 <b>explanation:</b><br>
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is really 
-far away.
+Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside 
+of your pregenerated world. It's only safe to enable this if you pregenerated your world and set vanilla world border.
+
+<h4>treasure-maps-return-already-discovered</h4>
+<b>default:</b> false<br>
+<b>optimized:</b> true<br>
+<b>explanation:</b><br>
+Default value forces the newly generated maps to look for unexplored structure, which are usually outside of your 
+pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier.
 
 <h4>viewdistances.no-tick-view-distance</h4>
 <b>default:</b> -1<br>
@@ -226,9 +237,29 @@ far away.
 This allows players to see further without ticking as many chunks as regular view-distance would. Although it's not really
 heavy on the server keep in mind that sending more chunks will affect bandwidth.
 
-<h4>projectile-load-save-per-chunk-limit</h4>
+<h4>entity-per-chunk-save-limit</h4>
 <b>default:</b> -1<br>
-<b>optimized:</b> 8<br>
+<b>optimized:</b> <br>
+<pre>
+  entity-per-chunk-save-limit:
+      arrow: 8
+      dragonfireball: 8
+      egg: 8
+      ender_pearl: 8
+      fireball: 8
+      firework: 8
+      largefireball: 8
+      lingeringpotion: 8
+      llamaspit: 8
+      shulkerbullet: 8
+      sizedfireball: 8
+      snowball: 8
+      spectralarrow: 8
+      splashpotion: 8
+      thrownexpbottle: 8
+      trident: 8
+      witherskull: 8
+</pre>
 <b>explanation:</b><br>
 Limits the amount of projectiles that can be saved in a chunk. This prevents issues that arise with lower view-distance
 like players throwing massive amounts of snowballs into unloaded chunk that has a potential to crash your server on 
@@ -277,7 +308,8 @@ worlds loading chunks on main thread.<br>
 <b>default:</b> false<br>
 <b>optimized:</b> true<br>
 <b>explanation:</b><br>
-Prevents dolphins from performing structure search similiar to the one that treasure maps do.
+Prevents dolphins from performing structure search similiar to the one that treasure maps do. Same rules for setting 
+this to false apply.
 
 <h4>mobs.zombie.aggressive-towards-villager-when-lagging</h4>
 <b>default:</b> false<br>
