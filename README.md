@@ -51,11 +51,10 @@ monsters: 12, animals: 5, water-animals: 2, water-ambient: 2, ambient: 0
 Lower values mean less mobs. Less mobs is less lag in general, but you want to balance it with player quality of life, finding mobs in the world is big part of gameplay. With [per-player-mob-spawns](#per-player-mob-spawns) those numbers represent basically 1:1 limit of mobs in the given category per player, so mob cap math is `playercount*limit`.
 
 #### chunk-gc.period-in-ticks
-[Spigot Server Optimization Guide]  
 **default:** 600  
 **optimized:** 400  
 **explanation:**  
-This decides how often vacant chunks are unloaded. Ticking fewer chunks means less TPS consumption.
+This decides how often vacant chunks are unloaded. Ticking fewer chunks means less TPS consumption. [SOG]
 
 #### ticks-per
 **default:**  
@@ -70,13 +69,12 @@ This sets how often (in ticks) the server attempts to spawn certain living entit
 ### spigot.yml
 
 #### max-tick-time
-[Spigot Server Optimization Guide]  
 **default:**  
 tile: 50, entity: 50  
 **optimized:**  
 tile: 1000, entity: 1000  
 **explanation:**  
-Setting these to the recommended values disables this feature. You can read why it should be disabled [here](https://aikar.co/2015/10/08/spigot-tick-limiter-dont-use-max-tick-time/).
+Setting these to the recommended values disables this feature. You can read why it should be disabled [here](https://aikar.co/2015/10/08/spigot-tick-limiter-dont-use-max-tick-time/). [SOG]
 
 #### view-distance
 **default:** default  
@@ -91,20 +89,18 @@ Setting the actual view distance lower than default will make less chunks tick, 
 This usually should be 1 less than [view-distance](#view-distance). You can experiment with other values when changing bukkit mob caps.
 
 #### entity-activation-range
-[Spigot Server Optimization Guide]  
 **default:**  
 animals:32, monsters:32, raiders: 48, misc:16  
 **optimized:**  
 animals:16, monsters:24, raiders: 48, misc:8  
 **explanation:**  
-Entities past this range will be ticked less often. Avoid setting this too low or you might break mob behavior (mob aggro, raids, etc).
+Entities past this range will be ticked less often. Avoid setting this too low or you might break mob behavior (mob aggro, raids, etc). [SOG]
 
 #### tick-inactive-villagers
-[Spigot Server Optimization Guide]  
 **default:** true  
 **optimized:** false  
 **explanation:**  
-Enabling this prevents the server from ticking villagers outside the activation range. Villager tasks in 1.14+ are very heavy.
+Enabling this prevents the server from ticking villagers outside the activation range. Villager tasks in 1.14+ are very heavy. [SOG]
 
 #### merge-radius
 **default:**  
@@ -116,11 +112,10 @@ This will decide the distance between the items to be merged, reducing the amoun
 Merging will lead to the illusion of items disappearing as they merge together. A minor annoyance.
 
 #### nerf-spawner-mobs
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-When enabled, mobs from spawners will not have AI (will not swim/attack/move). This is a big TPS saver on servers with mob farms, but also messes with their behavior.
+When enabled, mobs from spawners will not have AI (will not swim/attack/move). This is a big TPS saver on servers with mob farms, but also messes with their behavior. [SOG]
 
 ---
 
@@ -140,25 +135,22 @@ Slows down incremental world saving by spreading the task over time even more fo
 By default mob limits are counted for the entire server which means mobs might end up being distributed unevenly between online players. This option enables per-player mob limits, meaning all players can get approximately the same number of mobs around them regardless of number of online players. Enabling this option also allows you to lower `spawn-limits` in `bukkit.yml` since those are optimized for per-server mob limits.
 
 #### optimize-explosions
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-Faster explosion algorithm with no impact on gameplay.
+Faster explosion algorithm with no impact on gameplay. [SOG]
 
 #### max-entity-collisions
-[Spigot Server Optimization Guide]  
 **default:** 8  
 **optimized:** 2  
 **explanation:**  
-Less collisions calculation per entity.
+Less collisions calculation per entity. [SOG]
 
 #### grass-spread-tick-rate
-[Spigot Server Optimization Guide]  
 **default:** 1  
 **optimized:** 4  
 **explanation:**  
-Time in ticks before server tries to spread grass/mycelium. No gameplay impact in most cases.
+Time in ticks before server tries to spread grass/mycelium. No gameplay impact in most cases. [SOG]
 
 #### despawn-ranges
 **default:**  
@@ -169,11 +161,10 @@ soft: 28, hard: 48
 Lower ranges clear background mobs and allow more to be spawned in areas with player traffic. This further reduces the gameplay impact of reduced spawning ([bukkit.yml](#bukkit.yml)). Values adjusted for [view-distance: 3](#view-distance).
 
 #### hopper.disable-move-event
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-This will significantly reduce hopper lag by preventing `InventoryMoveItemEvent` being called for EVERY slot in a container.
+This will significantly reduce hopper lag by preventing `InventoryMoveItemEvent` being called for EVERY slot in a container. [SOG]
 **Do not enable if you use plugins that listen to this event, e.g. protection plugins!**
 
 #### non-player-arrow-despawn-rate
@@ -189,25 +180,22 @@ Makes arrows shot by mobs disappear after 1 second after hitting something.
 Makes arrows shot by players in creative disappear after 1 second after hitting something. 
 
 #### prevent-moving-into-unloaded-chunks
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-Prevents players from entering an unloaded chunk (due to lag), which causes more lag. Setting this to true will set them back to a safe location instead.
+Prevents players from entering an unloaded chunk (due to lag), which causes more lag. Setting this to true will set them back to a safe location instead. [SOG]
 
 #### use-faster-eigencraft-redstone
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-Alternative, faster redstone system. Reduces redundant redstone updates by nearly 95%.
+Alternative, faster redstone system. Reduces redundant redstone updates by nearly 95%. [SOG]
 
 #### alt-item-despawn-rate.enabled
-[Spigot Server Optimization Guide]  
 **default:** false  
 **optimized:** true  
 **explanation:**  
-This option lets you despawn selected items faster than default despawn rate. You can add things like cobblestone, netherrack etc. to the list and make them despawn after ~20 seconds (400 ticks).
+This option lets you despawn selected items faster than default despawn rate. You can add things like cobblestone, netherrack etc. to the list and make them despawn after ~20 seconds (400 ticks). [SOG]
 
 #### enable-treasure-maps
 **default:** true  
@@ -305,7 +293,7 @@ Zombies stop targetting villagers when tps is under lag treshold. This saves the
 ## Java startup flags
 [Paper and its forks in upcoming version 1.17 will require Java 11 (LTS) or higher](https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615). Good 2021 resolution to finally update your version of Java! (or at least inform your host so they can handle the migration).  
 
-JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [Spigot Server Optimization Guide].
+JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [SOG].
 
 ## "Performance" plugins
 
@@ -330,4 +318,4 @@ To get timings of your server you just need to execute `/timings paste` command 
 [Spark](https://github.com/lucko/spark) is a plugin that allows you to profile your servers CPU and memory usage. You can read on how to use it [on its wiki](https://github.com/lucko/spark/wiki/Commands). There's also a guide on how to find the cause of lag spikes [here](https://github.com/lucko/spark/wiki/Finding-the-cause-of-lag-spikes).
 
 
-[Spigot Server Optimization Guide]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
+[SOG]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
