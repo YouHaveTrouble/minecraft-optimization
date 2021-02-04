@@ -6,7 +6,7 @@ Guide for version 1.16.5
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 ## Intro
-I'd like to mention that this guide is not some "magical cure". Each server has their own "sweet spot" that needs to be found through tinkering with all the settings available to you. This guide is just a compilation of different changes that are meant to set you in the right direction of finding your server's "sweet spot".
+There will never be a guide that you can follow and it will give you perfect results. Each server has their own needs and limits on how much you can or you are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs it's what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within the guide you're free to open github issue telling me about it or open a pull request.
 
 ## Server jar
 Your choice of server software can make a huge difference in performance and api possibilities. There are currently multiple viable popular server jars, but there are also a few that you should stay away from for various reasons.
@@ -48,13 +48,13 @@ monsters: 70, animals: 10, water-animals: 15, water-ambient: 20, ambient: 15
 **optimized:**  
 monsters: 12, animals: 5, water-animals: 2, water-ambient: 2, ambient: 0  
 **explanation:**  
-Lower values mean less mobs. Less mobs is less lag in general, but you want to balance it with player quality of life, finding mobs in the world is big part of gameplay. With [per-player-mob-spawns](#per-player-mob-spawns) those numbers represent basically 1:1 limit of mobs in the given category per player, so mob cap math is `playercount*limit`.
+Lower values mean less mobs. Less mobs is less lag in general, but you want to balance it with player quality of life, finding mobs in the world is big part of gameplay. With [per-player-mob-spawns](#per-player-mob-spawns) those numbers represent basically 1:1 limit of mobs in the given category per player, so mob cap math is `playercount*limit` where "playercount" is current amount of players on the server.
 
 #### chunk-gc.period-in-ticks
 **default:** 600  
 **optimized:** 400  
 **explanation:**  
-This decides how often vacant chunks are unloaded. Ticking fewer chunks means less TPS consumption. [SOG]
+This decides how often vacant chunks are unloaded. Smaller the value means less chunks being ticked, but going too low will stress your CPU more.
 
 #### ticks-per
 **default:**  
@@ -80,13 +80,13 @@ Setting these to the recommended values disables this feature. You can read why 
 **default:** default  
 **optimized:** 3  
 **explanation:**  
-Setting the actual view distance lower than default will make less chunks tick, and with paper's no-tick-view-distance enabled you will be able to send more chunks to player that actually tick.
+Setting the actual view distance lower than default will make less chunks tick, and with paper's no-tick-view-distance enabled you will be able to send more chunks to player that actually tick. If you encounter issues with optimized value you can bump it to 4 and still get decent performance.
 
 #### mob-spawn-range
 **default:** 8  
 **optimized:** 2  
 **explanation:**  
-This usually should be 1 less than [view-distance](#view-distance). You can experiment with other values when changing bukkit mob caps.
+Some people may argue that setting this to 1 less than [view-distance](#view-distance) is good enough, but lower values like 2 or 3 will allow you to decrease amount of mobs in [spawn-limits](#spawn-limits).
 
 #### entity-activation-range
 **default:**  
@@ -109,7 +109,7 @@ item:2.5, exp:3.0
 item:3.0, exp:6.0  
 **explanation:**  
 This will decide the distance between the items to be merged, reducing the amount of items ticking on the ground.
-Merging will lead to the illusion of items disappearing as they merge together. A minor annoyance.
+Merging will lead to the illusion of items disappearing as they merge together.
 
 #### nerf-spawner-mobs
 **default:** false  
@@ -132,19 +132,19 @@ Slows down incremental world saving by spreading the task over time even more fo
 **default:** false  
 **optimized:** true  
 **explanation:**  
-By default mob limits are counted for the entire server which means mobs might end up being distributed unevenly between online players. This option enables per-player mob limits, meaning all players can get approximately the same number of mobs around them regardless of number of online players. Enabling this option also allows you to lower `spawn-limits` in `bukkit.yml` since those are optimized for per-server mob limits.
+By default mob limits are counted for the entire server which means mobs might end up being distributed unevenly between online players. This option enables per-player mob limits, meaning all players can get approximately the same number of mobs around them regardless of number of online players. Enabling this option also allows you to lower default `spawn-limits` in `bukkit.yml` since those are optimized for per-server mob limits.
 
 #### optimize-explosions
 **default:** false  
 **optimized:** true  
 **explanation:**  
-Faster explosion algorithm with no impact on gameplay. [SOG]
+Faster explosion algorithm with no noticeable impact on gameplay. [SOG]
 
 #### max-entity-collisions
 **default:** 8  
 **optimized:** 2  
 **explanation:**  
-Less collisions calculation per entity. [SOG]
+Limits the amount of collisions one entity will calculate at the same time. Setting this to optimized value will let you keep the player ability to nudge mobs. Setting this to 0 will completely disable collisions making nudging mobs/players impossible.
 
 #### grass-spread-tick-rate
 **default:** 1  
@@ -156,7 +156,7 @@ Time in ticks before server tries to spread grass/mycelium. No gameplay impact i
 **default:**  
 soft: 32, hard: 128  
 **optimized:**  
-soft: 28, hard: 48  
+soft: 28, hard: 52  
 **explanation:**  
 Lower ranges clear background mobs and allow more to be spawned in areas with player traffic. This further reduces the gameplay impact of reduced spawning ([bukkit.yml](#bukkit.yml)). Values adjusted for [view-distance: 3](#view-distance).
 
@@ -164,8 +164,8 @@ Lower ranges clear background mobs and allow more to be spawned in areas with pl
 **default:** false  
 **optimized:** true  
 **explanation:**  
-This will significantly reduce hopper lag by preventing `InventoryMoveItemEvent` being called for EVERY slot in a container. [SOG]
-**Do not enable if you use plugins that listen to this event, e.g. protection plugins!**
+`InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. 
+**Do not set to true if you use plugins that listen to this event, e.g. protection plugins!**
 
 #### non-player-arrow-despawn-rate
 **default:** -1  
