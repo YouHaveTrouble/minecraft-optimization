@@ -252,6 +252,12 @@ Hides ores from x-rayers. For detailed configuration of this feature check out [
 ### purpur.yml
 Only applicable for purpur.
 
+#### tps-catchup
+**default:** true  
+**optimized:** false  
+**explanation:**  
+TPS catchup sends your server into overdrive after tps drops. If your server is constantly running more than 50mspt you'll most likely see an improvement in performance due to the fact that the server will not try to average the tps to 20 by going over 20. It's worth noting that some plugins may not expect this feature being disabled.
+
 #### use-alternate-keepalive
 **default:** false  
 **optimized:** true  
