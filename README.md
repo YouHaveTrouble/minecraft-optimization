@@ -20,6 +20,7 @@ You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said.
 * Any paid server jar that claims async anything - 99.99% chance of being a scam.
 * Bukkit/Craftbukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
+* Any plugin/software that enables/disables/reloads plugins on runtime.
 
 ## Map pregen
 Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared cpu/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin.
@@ -301,13 +302,16 @@ Zombies stop targetting villagers when tps is under lag treshold. This saves the
 
 JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [SOG].
 
-## "Performance" plugins
+## "Too good to be true" plugins
 
 ### Plugins removing ground items
 Absolutely unnecessary since they can be replaced with [merge radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rateenabled) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
 
 ### Mob stacker plugins
 It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all due to the server constantly trying to spawn more mobs. The only "acceptable" use case is for spawners on servers with a large amount of spawners.
+
+### Plugins enabling/disabling other plugins
+Anything that enables or disables plugins on runtime is extremely dangerous. Loading a plugin like that can cause fatal errors with tracking data and disabling a plugin can lead to errors due to removing dependency. The `/reload` command suffers from exact same issues and you can read more about them in [this me4502's blog post](https://matthewmiller.dev/blog/problem-with-reload/)
 
 ## What's lagging? - measuring performance
 
