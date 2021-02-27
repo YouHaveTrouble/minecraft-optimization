@@ -84,6 +84,13 @@ entity-per-chunk-save-limit:
     trident: -1
     witherskull: -1
 ```
+
+### armor-stands-tick
+In most cases you can safely set this to `false`. If you're using any plugins that modify the behavior or use armor stands and you experience issues with them you shouldn't change this one.
+
+### armor-stands-do-collision-entity-lookups
+Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
+
 ---
 
 ## Mobs
@@ -118,11 +125,26 @@ You can make mobs spawned by monster spawner have no AI. Nerfed mobs will do not
 ### max-entity-collisions (`paper.yml`)
 Overwrites option with the same name in `spigot.yml`. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases.
 
+### update-pathfinding-on-block-update (`paper.yml`)
+Disabling this will result in less pathfinding being done, increasing performance, but mobs can appear more laggy, as they will just passively update their path every 5 ticks (0.25 sec).
+
+### fix-climbing-bypassing-cramming-rule (`paper.yml`)
+Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
+
 ### dont-send-useless-entity-packets (`purpur.yml`)
 Enabling this option will save you bandwidth by preventing the server from sending empty position change packets (by default server sends this packet for each entity even if the entity hasn't moved). May cause some issues with plugins that use client-side entities.
 
 ### aggressive-towards-villager-when-lagging (`purpur.yml`)
 Enabling this will cause zombies to stop targeting villagers if server is below tps treshold set in `lagging-threshold` in `purpur.yml`.
+
+### entities-can-use-portals (`purpur.yml`)
+This option can disable portal usage of all entities besides the player. This prevents entities changing worlds loading chunks on main thread.
+
+### villager.brain-ticks (`purpur.yml`)
+This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistant/buggy.
+
+### villager.lobotomize (`purpur.yml`)
+Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
 ---
 
@@ -149,14 +171,33 @@ Generating treasure maps is extremely expensive and can hang a server if the str
 ### treasure-maps-return-already-discovered (`paper.yml`)
 Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier.
 
+### grass-spread-tick-rate (`paper.yml`)
+Time in ticks between server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it and have basically noone notice it.
+
+### non-player-arrow-despawn-rate (`paper.yml`)
+Time in ticks after which arrows shot by mobs should disappear after hitting anything. Players can't pick those up anyway, so you may aswell set this to something like `20`.
+
+### creative-arrow-despawn-rate (`paper.yml`)
+Time in ticks after which arrows shot by players in creative mode should disappear after hitting anything. Players can't pick those up anyway, so you may aswell set this to something like `20`.
+
 ### disable-treasure-searching (`purpur.yml`)
 Prevents dolphins from performing structure search similiar to treasure maps
 
 ### teleport-if-outside-border (`purpur.yml`)
 Allows you to teleport player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
 
-### entities-can-use-portals (`purpur.yml`)
-This option can disable portal usage of all entities besides the player. This prevents entities changing worlds loading chunks on main thread.
+---
+
+## Helpers
+
+### anti-xray (`paper.yml`)
+Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
+
+### remove-corrupt-tile-entities (`paper.yml`)
+Change this to `true` if you're getting your console spammed with errors regarding tileentities. This will remove any tileentities that cause that instead of ignoring it.
+
+### nether-ceiling-void-damage-height (`paper.yml`)
+If this option is greater that `0`, players above the set y level will be damaged as if they were in the void. This will prevent players from using nether roof. Vanilla nether is 128 blocks tall, so you should probably set it to `127`. If you modify the height of the nether in any way you should set this to `your_nether_height - 1`.
 
 ---
 
