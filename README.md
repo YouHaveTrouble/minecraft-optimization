@@ -39,7 +39,7 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ### [`server.properties`]
 
-#### Network-compression-threshold
+#### network-compression-threshold
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some resources at the cost of bandwidth, and setting it to -1 disables it. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
 ### [`purpur.yml`]
@@ -195,7 +195,7 @@ Setting this to `true` replaces the vanilla explosion algorithm with a faster on
 Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
 #### treasure-maps-return-already-discovered
-Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier.
+Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience server hangs or crashes when generating new treasure maps.
 
 #### grass-spread-tick-rate
 Time in ticks the server is trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without it being noticeable.
