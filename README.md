@@ -1,14 +1,51 @@
 
 # Minecraft server optimization guide
 
-Guide for version 1.16.5  
+Guide for version 1.16.5
+
+WARNING: This version of the guide has an experimental layout that is not yet complete!
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
-## Intro
-There will never be a guide that you can follow and it will give you perfect results. Each server has their own needs and limits on how much you can or you are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs it's what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within the guide you're free to open github issue telling me about it or open a pull request.
+## Table of Contents
+* [Intro](#intro)
+* [Preparations](#preparations)
+    * [Server jar](#server-jar)
+    * [Map pregen](#map-pregen)
+* [Configurations](#configurations)
+    * [Networking](#networking)
+        * [server.properties](#serverproperties)
+        * [purpur.yml](#purpuryml)
+    * [Chunks](#chunks)
+        * [spigot.yml](#spigotyml)
+        * [paper.yml](#paperyml)
+    * [Mobs](#mobs)
+        * [bukkit.yml](#bukkityml)
+        * [spigot.yml](#spigotyml)
+        * [paper.yml](#paperyml-1)
+        * [purpur.yml](#purpuryml-1)
+    * [Misc](#misc)
+        * [spigot.yml](#spigotyml-1)
+        * [paper.yml](#paperyml-2)
+        * [purpur.yml](#purpuryml-2)
+    * [Helpers](#helpers)
+        * [paper.yml](#paperyml-3)
+* [Java startup flags](#java-startup-flags)
+* ["Too good to be true" plugins](#too-good-to-be-true-plugins)
+    * [Plugins removing ground items](#plugins-removing-ground-items)
+    * [Mob stacker plugins](#mob-stacker-plugins)
+    * [Plugins enabling/disabling other plugins](#plugins-enablingdisabling-other-plugins)
+* [What's lagging? - measuring performance](#whats-lagging---measuring-performance)
+    * [mspt](#mspt)
+    * [timings](#timings)
+    * [spark](#spark)
 
-## Server jar
+## Intro
+There will never be a guide that will give you perfect results. Each server has their own needs and limits on how much you can or are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs is what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within this guide, you're free to open an issue or set up a pull request.
+
+## Preparations
+
+### Server jar
 Your choice of server software can make a huge difference in performance and api possibilities. There are currently multiple viable popular server jars, but there are also a few that you should stay away from for various reasons.
 
 Recommended top picks:
@@ -20,9 +57,9 @@ You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said.
 * Any paid server jar that claims async anything - 99.99% chance of being a scam.
 * Bukkit/Craftbukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
-* Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to read why.
+* Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
 
-## Map pregen
+### Map pregen
 Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared cpu/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin.
 
 It's key to remember that the overworld, nether and the end have separate world borders that need to be set up for each world. The nether dimension is 8x smaller than the overworld (if not modified with a datapack), so if you set the size wrong your players might end up outside of the world border!
@@ -31,276 +68,218 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ## Configurations
 
-### server.properties
+### Networking
 
-#### network-compression-threshold
-**default:** 256  
-**optimized:** Standalone(512) BungeeCord(-1)  
-**explanation:**  
-This option caps the size of a packet before the server attempts to compress it. Setting it higher can save some resources at the cost of bandwidth, and setting it to -1 disables it. If your server is in a network with the proxy on the same machine or datacenter (with less than 2 ms ping), disabling this (-1) will be beneficial.
+#### [`server.properties`]
 
----
+##### network-compression-threshold
+This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some resources at the cost of bandwidth, and setting it to -1 disables it. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
-### bukkit.yml
+#### [`purpur.yml`]
 
-#### spawn-limits
-**default:**  
-monsters: 70, animals: 10, water-animals: 15, water-ambient: 20, ambient: 15  
-**optimized:**  
-monsters: 12, animals: 5, water-animals: 2, water-ambient: 2, ambient: 0  
-**explanation:**  
-Lower values mean less mobs. Less mobs is less lag in general, but you want to balance it with player quality of life, finding mobs in the world is big part of gameplay. With [per-player-mob-spawns](#per-player-mob-spawns) those numbers represent basically 1:1 limit of mobs in the given category per player, so mob cap math is `playercount*limit` where "playercount" is current amount of players on the server.
+##### use-alternate-keepalive
+you can enable purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.  
 
-#### chunk-gc.period-in-ticks
-**default:** 600  
-**optimized:** 400  
-**explanation:**  
-This decides how often vacant chunks are unloaded. Smaller the value means less chunks being ticked, but going too low will stress your CPU more.
-
-#### ticks-per
-**default:**  
-monster-spawn: 1, animal-spawns: 400, water-spawns: 1, ambient-spawns: 1, water-ambient-spawns: 1  
-**optimized:**  
-monster-spawn: 10, animal-spawns: 400, water-spawns: 40, ambient-spawns: 40, water-ambient-spawns: 40  
-**explanation:**  
-This sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms.
+```
+Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds.
+Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines
+```
+https://pl3xgaming.github.io/PurpurDocs/Configuration/#use-alternate-keepalive
 
 ---
 
-### spigot.yml
+### Chunks
 
-#### max-tick-time
-**default:**  
-tile: 50, entity: 50  
-**optimized:**  
-tile: 1000, entity: 1000  
-**explanation:**  
-Setting these to the recommended values disables this feature. You can read why it should be disabled [here](https://aikar.co/2015/10/08/spigot-tick-limiter-dont-use-max-tick-time/). [SOG]
+#### [`spigot.yml`]
 
-#### view-distance
-**default:** default  
-**optimized:** 3  
-**explanation:**  
-Setting the actual view distance lower than default will make less chunks tick, and with paper's no-tick-view-distance enabled you will be able to send more chunks to player that actually tick. If you encounter issues with optimized value you can bump it to 4 and still get decent performance.
+##### view-distance
+View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes mobs being active, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existance of `no-tick-view-distance`.
 
-#### mob-spawn-range
-**default:** 8  
-**optimized:** 2  
-**explanation:**  
-Some people may argue that setting this to 1 less than [view-distance](#view-distance) is good enough, but lower values like 2 or 3 will allow you to decrease amount of mobs in [spawn-limits](#spawn-limits).
+#### [`paper.yml`]
 
-#### entity-activation-range
-**default:**  
-animals:32, monsters:32, raiders: 48, misc:16  
-**optimized:**  
-animals:16, monsters:24, raiders: 48, misc:8  
-**explanation:**  
-Entities past this range will be ticked less often. Avoid setting this too low or you might break mob behavior (mob aggro, raids, etc). [SOG]
+##### no-tick-view-distance
+This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `view-distance` and still let players see further. It's important to know that while the chunks beyond actual `view-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. As of now chunks are sent to the client regardless of their view distance setting, so going on higher values for this option can cause issues for players with slower connections.
 
-#### tick-inactive-villagers
-**default:** true  
-**optimized:** false  
-**explanation:**  
-Enabling this prevents the server from ticking villagers outside the activation range. Villager tasks in 1.14+ are very heavy. [SOG]
+##### delay-chunk-unloads-by
+Lets you configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once.
 
-#### merge-radius
-**default:**  
-item:2.5, exp:3.0  
-**optimized:**  
-item:3.0, exp:6.0  
-**explanation:**  
-This will decide the distance between the items to be merged, reducing the amount of items ticking on the ground.
-Merging will lead to the illusion of items disappearing as they merge together.
+##### max-auto-save-chunks-per-tick
+Lets you slow down incremental world saving by spreading the task over time even more for better average performance. You might want to set this higher than `8` with more than 20-30 players. If incremental save can't finish in time then bukkit will automatically save leftover chunks at once and begin the process again.
 
-#### nerf-spawner-mobs
-**default:** false  
-**optimized:** true  
-**explanation:**  
-When enabled, mobs from spawners will not have AI (will not swim/attack/move). This is a big TPS saver on servers with mob farms, but also messes with their behavior. [SOG]
+##### prevent-moving-into-unloaded-chunks
+When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probablility of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
 
----
-
-### paper.yml
-Most of the settings in this file can be configured per-world. See [this pdf](https://www.spigotmc.org/attachments/per-world-guide-pdf.444348/) for details.
-
-#### max-auto-save-chunks-per-tick
-**default:** 24  
-**optimized:** 8  
-**explanation:**  
-Slows down incremental world saving by spreading the task over time even more for better average performance. You might want to set this higher with more than 20-30 players; if incremental save can't finish in time then bukkit will automatically save leftover chunks at once and begin the process again.
-
-#### per-player-mob-spawns
-**default:** false  
-**optimized:** true  
-**explanation:**  
-By default mob limits are counted for the entire server which means mobs might end up being distributed unevenly between online players. This option enables per-player mob limits, meaning all players can get approximately the same number of mobs around them regardless of number of online players. Enabling this option also allows you to lower default `spawn-limits` in `bukkit.yml` since those are optimized for per-server mob limits.
-
-#### optimize-explosions
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Faster explosion algorithm with no noticeable impact on gameplay. [SOG]
-
-#### max-entity-collisions
-**default:** 8  
-**optimized:** 2  
-**explanation:**  
-Limits the amount of collisions one entity will calculate at the same time. Setting this to optimized value will let you keep the player ability to nudge mobs. Setting this to 0 will completely disable collisions making nudging mobs/players impossible.
-
-#### grass-spread-tick-rate
-**default:** 1  
-**optimized:** 4  
-**explanation:**  
-Time in ticks before server tries to spread grass/mycelium. No gameplay impact in most cases. [SOG]
-
-#### despawn-ranges
-**default:**  
-soft: 32, hard: 128  
-**optimized:**  
-soft: 28, hard: 52  
-**explanation:**  
-Lower ranges clear background mobs and allow more to be spawned in areas with player traffic. This further reduces the gameplay impact of reduced spawning ([bukkit.yml](#bukkit.yml)). Values adjusted for [view-distance: 3](#view-distance).
-
-#### hopper.disable-move-event
-**default:** false  
-**optimized:** true  
-**explanation:**  
-`InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. 
-**Do not set to true if you use plugins that listen to this event, e.g. protection plugins!**
-
-#### non-player-arrow-despawn-rate
-**default:** -1  
-**optimized:** 20  
-**explanation:**  
-Makes arrows shot by mobs disappear after 1 second after hitting something. 
-
-#### creative-arrow-despawn-rate
-**default:** -1  
-**optimized:** 20  
-**explanation:**  
-Makes arrows shot by players in creative disappear after 1 second after hitting something. 
-
-#### prevent-moving-into-unloaded-chunks
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Prevents players from entering an unloaded chunk (due to lag), which causes more lag. Setting this to true will set them back to a safe location instead. [SOG]
-
-#### use-faster-eigencraft-redstone
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Alternative, faster redstone system. Reduces redundant redstone updates by nearly 95%. [SOG]
-
-#### alt-item-despawn-rate.enabled
-**default:** false  
-**optimized:** true  
-**explanation:**  
-This option lets you despawn selected items faster than default despawn rate. You can add things like cobblestone, netherrack etc. to the list and make them despawn after ~20 seconds (400 ticks). [SOG]
-
-#### enable-treasure-maps
-**default:** true  
-**optimized:** false  
-**explanation:**  
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
-
-#### treasure-maps-return-already-discovered
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Default value forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier.
-
-#### viewdistances.no-tick-view-distance
-**default:** -1  
-**optimized:** 8  
-**explanation:**  
-This allows players to see further without ticking as many chunks as regular view-distance would. Although it's not really heavy on the server, keep in mind that sending more chunks will affect bandwidth.
-
-#### entity-per-chunk-save-limit
-**default:** -1  
-**optimized:**  
+##### entity-per-chunk-save-limit
+With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list.
 ```
 entity-per-chunk-save-limit:
-    arrow: 8
-    dragonfireball: 8
-    egg: 8
-    ender_pearl: 8
-    fireball: 8
-    firework: 8
-    largefireball: 8
-    lingeringpotion: 8
-    llamaspit: 8
-    shulkerbullet: 8
-    sizedfireball: 8
-    snowball: 8
-    spectralarrow: 8
-    splashpotion: 8
-    thrownexpbottle: 8
-    trident: 8
-    witherskull: 8
+    arrow: -1
+    dragonfireball: -1
+    egg: -1
+    ender_pearl: -1
+    fireball: -1
+    firework: -1
+    largefireball: -1
+    lingeringpotion: -1
+    llamaspit: -1
+    shulkerbullet: -1
+    sizedfireball: -1
+    snowball: -1
+    spectralarrow: -1
+    splashpotion: -1
+    thrownexpbottle: -1
+    trident: -1
+    witherskull: -1
 ```
-**explanation:**  
-Limits the amount of projectiles that can be saved in a chunk. This prevents issues that arise with lower view-distance like players throwing massive amounts of snowballs into unloaded chunk that has a potential to crash your server on loading of that chunk.
 
-#### anti-xray.enabled
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Hides ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
+##### armor-stands-tick
+In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it.
+
+##### armor-stands-do-collision-entity-lookups
+Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
 ---
 
-### purpur.yml
-Only applicable for purpur.
+### Mobs
 
-#### tps-catchup
-**default:** true  
-**optimized:** false  
-**explanation:**  
-TPS catchup sends your server into overdrive after tps drops. If your server is constantly running more than 50mspt you'll most likely see an improvement in performance due to the fact that the server will not try to average the tps to 20 by going over 20. It's worth noting that some plugins may not expect this feature being disabled.
+#### [`bukkit.yml`]
 
-#### use-alternate-keepalive
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Alternate system for keepalive packets so players with bad connection don't get timed out as often.
+##### spawn-limits
+When `per-player-mob-spawns` is enabled, the math of limiting mobs is just `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. If you are using tuinity, you can set mob limits per world in [`tuinity.yml`].
 
-#### dont-send-useless-entity-packets
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Prevent the server from sending empty position change packets (by default server sends move packet for each entity even if the entity hasn't moved)
+##### ticks-per
+This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`.
 
-#### gameplay-mechanics.player.teleport-if-outside-border
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
+#### [`spigot.yml`]
 
-#### gameplay-mechanics.player.entities-can-use-portals
-**default:** true  
-**optimized:** false  
-**explanation:**  
-Disables portal usage of all entities besides the player. This potentially fixes a dupe* and prevents entities changing worlds loading chunks on main thread.
+##### mob-spawn-range
+Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [`bukkit.yml`]'s `spawn-limits`.
 
-\* *more sources needed.*
+##### entity-activation-range
+You can set what distance from the player an entity should be for it to tick (do stuff). Reducing those values helps performance, but may result in irresponsive mobs until the player gets really close to them.
 
-#### mobs.dolphin.disable-treasure-searching
-**default:** false  
-**optimized:** true  
-**explanation:**  
-Prevents dolphins from performing structure search similiar to treasure maps ([`enable-treasure-maps`](#enable-treasure-maps)).
+##### entity-tracking-range
+This is distance in blocks from which entities will be visible. Reducing those ranges only saves bandwidth, as entities are still ticked above this range. They just won't be sent to players. If set too low this can cause mobs to seem to appear out of nowhere near a player.
 
-#### mobs.zombie.aggressive-towards-villager-when-lagging
-**default:** true  
-**optimized:** false  
-**explanation:**  
-Zombies stop targetting villagers when tps is under lag treshold. This saves the server precious time of calculating paths for zombies that are not targetting players.
+##### tick-inactive-villagers
+This allows you to decide if villagers should be ticked outside of the activation range. This will make villagers proceed as normal and ignore the activation range. Disabling this will help performance, but might be confusing for players in certain situations.
+
+##### nerf-spawner-mobs
+You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [`paper.yml`].
+
+#### [`paper.yml`]
+
+##### despawn-ranges
+Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [`paper.yml`]).
+
+##### per-player-mob-spawns
+This option decides if mob spawns should account for how many mobs are around target player already. You can bypass a lot of issues regarding mob spawns being inconsistent due to players creating farms that take up the entire mobcap. This will also make the job easier to properly set entity limits, as it makes the math easier.
+
+##### max-entity-collisions
+Overwrites option with the same name in [`spigot.yml`]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases.
+
+##### update-pathfinding-on-block-update
+Disabling this will result in less pathfinding being done, increasing performance, but mobs can appear more laggy; They will just passively update their path every 5 ticks (0.25 sec).
+
+##### fix-climbing-bypassing-cramming-rule
+Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
+
+#### [`purpur.yml`]
+
+##### dont-send-useless-entity-packets
+Enabling this option will save you bandwidth by preventing the server from sending empty position change packets (by default the server sends this packet for each entity even if the entity hasn't moved). May cause some issues with plugins that use client-side entities.
+
+##### aggressive-towards-villager-when-lagging
+Enabling this will cause zombies to stop targeting villagers if the server is below the tps treshold set with `lagging-threshold` in [`purpur.yml`].
+
+##### entities-can-use-portals
+This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread.
+
+##### villager.brain-ticks
+This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistant/buggy.
+
+##### villager.lobotomize
+Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
+
+---
+
+### Misc
+
+#### [`spigot.yml`]
+
+##### merge-radius
+This decides the distance between the items and exp orbs to be merged, reducing the amount of items ticking on the ground. Setting this too high will lead to the illusion of items or exp orbs disappearing as they merge together.
+
+##### hopper-transfer
+Time in ticks that hoppers will wait to move an item. Increasing this will help improve performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems.
+
+##### hopper-check
+Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems.
+
+#### [`paper.yml`]
+
+##### alt-item-despawn-rate
+This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
+
+##### use-faster-eigencraft-redstone
+When enabled, the redstone system is replaced by a faster and alternative version that reduces redundant block updates, lowering the amount of work your server has to do.
+
+##### disable-move-event
+`InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
+
+##### mob-spawner-tick-rate
+This option lets you configure how often spawners should be ticked. Higher values mean less lag if you have a lot of spawners, but mobs will spawn less often if you increase this.
+
+##### optimize-explosions
+Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
+
+##### enable-treasure-maps
+Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
+
+##### treasure-maps-return-already-discovered
+Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps.
+
+##### grass-spread-tick-rate
+Time in ticks between the server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without it being noticeable.
+
+##### container-update-tick-rate
+Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
+
+##### non-player-arrow-despawn-rate
+Time in ticks after which arrows shot by mobs should disappear after hitting something. Players can't pick these up anyway, so you may aswell set this to something like `20`.
+
+##### creative-arrow-despawn-rate
+Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may aswell set this to something like `20`.
+
+#### [`purpur.yml`]
+
+##### disable-treasure-searching
+Prevents dolphins from performing structure search similiar to treasure maps
+
+##### teleport-if-outside-border
+Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
+
+---
+
+### Helpers
+
+#### [`paper.yml`]
+
+##### anti-xray
+Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
+
+##### remove-corrupt-tile-entities
+Change this to `true` if you're getting your console spammed with errors regarding tile entities. This will remove any tile entities that cause the error instead of ignoring it.
+
+##### nether-ceiling-void-damage-height
+If this option is greater that `0`, players above the set y level will be damaged as if they were in the void. This will prevent players from using the nether roof. Vanilla nether is 128 blocks tall, so you should probably set it to `127`. If you modify the height of the nether in any way you should set this to `[your_nether_height] - 1`.
+
+---
 
 ## Java startup flags
 [Paper and its forks in upcoming version 1.17 will require Java 11 (LTS) or higher](https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615). Good 2021 resolution to finally update your version of Java! (or at least inform your host so they can handle the migration).  
 
-JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [SOG].
+JVM can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [`SOG`].
 
 ## "Too good to be true" plugins
 
@@ -311,21 +290,26 @@ Absolutely unnecessary since they can be replaced with [merge radius](#merge-rad
 It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all due to the server constantly trying to spawn more mobs. The only "acceptable" use case is for spawners on servers with a large amount of spawners.
 
 ### Plugins enabling/disabling other plugins
-Anything that enables or disables plugins on runtime is extremely dangerous. Loading a plugin like that can cause fatal errors with tracking data and disabling a plugin can lead to errors due to removing dependency. The `/reload` command suffers from exact same issues and you can read more about them in [this me4502's blog post](https://matthewmiller.dev/blog/problem-with-reload/)
+Anything that enables or disables plugins on runtime is extremely dangerous. Loading a plugin like that can cause fatal errors with tracking data and disabling a plugin can lead to errors due to removing dependency. The `/reload` command suffers from exact same issues and you can read more about them in [me4502's blog post](https://matthewmiller.dev/blog/problem-with-reload/)
 
 ## What's lagging? - measuring performance
 
 ### mspt
-Paper offers a `/mspt` command that will tell you how much time server took to calculate recent ticks. If the first and second value you see are lower than 50, then congratulations! Your server is not lagging! If the third value is over 50 then it means there was at least 1 tick that took longer. That's completely normal and happens from time to time, so don't panic.
-
+Paper offers a `/mspt` command that will tell you how much time the server took to calculate recent ticks. If the first and second value you see are lower than 50, then congratulations! Your server is not lagging! If the third value is over 50 then it means there was at least 1 tick that took longer. That's completely normal and happens from time to time, so don't panic.
 
 ### timings
 Great way to see what might be going on when your server is lagging are timings. Timings is a tool that lets you see exactly what tasks are taking the longest. It's the most basic troubleshooting tool and if you ask for help regarding lag you will most likely be asked for your timings.
 
-To get timings of your server you just need to execute `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
+To get timings of your server you just need to execute the `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
 
 ### spark
 [Spark](https://github.com/lucko/spark) is a plugin that allows you to profile your servers CPU and memory usage. You can read on how to use it [on its wiki](https://github.com/lucko/spark/wiki/Commands). There's also a guide on how to find the cause of lag spikes [here](https://github.com/lucko/spark/wiki/Finding-the-cause-of-lag-spikes).
 
 
-[SOG]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
+[`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
+[`server.properties`]: https://minecraft.gamepedia.com/Server.properties
+[`bukkit.yml`]: https://bukkit.gamepedia.com/Bukkit.yml
+[`spigot.yml`]: https://www.spigotmc.org/wiki/spigot-configuration/
+[`paper.yml`]:  https://paper.readthedocs.io/en/latest/server/configuration.html
+[`purpur.yml`]: https://purpur.pl3x.net/docs
+[`tuinity.yml`]: https://github.com/Spottedleaf/Tuinity/wiki/Config
