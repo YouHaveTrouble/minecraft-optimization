@@ -91,7 +91,7 @@ https://pl3xgaming.github.io/PurpurDocs/Configuration/#use-alternate-keepalive
 #### [`spigot.yml`]
 
 ##### view-distance
-View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes mobs being active, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`.
+View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks, without ticking them. This effectively allows a farther view distance without the same performance impacts.
 
 #### [`paper.yml`]
 
@@ -99,16 +99,16 @@ View-distance is distance in chunks around the player that the server will tick.
 This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `view-distance` and still let players see further. It's important to know that while the chunks beyond actual `view-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. As of now chunks are sent to the client regardless of their view distance setting, so going on higher values for this option can cause issues for players with slower connections.
 
 ##### delay-chunk-unloads-by
-Lets you configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once.
+This option allows you configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading them.
 
 ##### max-auto-save-chunks-per-tick
 Lets you slow down incremental world saving by spreading the task over time even more for better average performance. You might want to set this higher than `8` with more than 20-30 players. If incremental save can't finish in time then bukkit will automatically save leftover chunks at once and begin the process again.
 
 ##### prevent-moving-into-unloaded-chunks
-When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probablility of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
+When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your no-tick-view-distance is.
 
 ##### entity-per-chunk-save-limit
-With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list.
+With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 ```
 entity-per-chunk-save-limit:
     arrow: -1
@@ -131,7 +131,7 @@ entity-per-chunk-save-limit:
 ```
 
 ##### armor-stands-tick
-In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it.
+In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it. This will prevent armor stands from being pushed by water or being affected by gravity.
 
 ##### armor-stands-do-collision-entity-lookups
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
@@ -143,24 +143,24 @@ Here you can disable armor stand collisions. This will help if you have a lot of
 #### [`bukkit.yml`]
 
 ##### spawn-limits
-When `per-player-mob-spawns` is enabled, the math of limiting mobs is just `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. If you are using tuinity, you can set mob limits per world in [`tuinity.yml`].
+The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` (spigot.yml) lower will make it feel as if there are more mobs around each player. If you are using tuinity, you can set mob limits per world in [`tuinity.yml`].
 
 ##### ticks-per
-This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`.
+This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`. Setting this higher also allows your server to better cope with areas were mob spawning is disabled.
 
 #### [`spigot.yml`]
 
 ##### mob-spawn-range
-Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [`bukkit.yml`]'s `spawn-limits`.
+Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [`bukkit.yml`]'s `spawn-limits`. Setting this lower will make feel as if there are more mobs around you. In the majority of cases this should be lower than or equal to your view distance, and never larger than your hard despawn range / 16.
 
 ##### entity-activation-range
-You can set what distance from the player an entity should be for it to tick (do stuff). Reducing those values helps performance, but may result in irresponsive mobs until the player gets really close to them.
+You can set what distance from the player an entity should be for it to tick (do stuff). Reducing those values helps performance, but may result in irresponsive mobs until the player gets really close to them. Lowering this too far can break certain mob farms, iron farms being the most common victim.
 
 ##### entity-tracking-range
-This is distance in blocks from which entities will be visible. Reducing those ranges only saves bandwidth, as entities are still ticked above this range. They just won't be sent to players. If set too low this can cause mobs to seem to appear out of nowhere near a player.
+This is distance in blocks from which entities will be visible. They just won't be sent to players. If set too low this can cause mobs to seem to appear out of nowhere near a player. In the majority of cases this should be higher than your `entity-activation-range`.
 
 ##### tick-inactive-villagers
-This allows you to decide if villagers should be ticked outside of the activation range. This will make villagers proceed as normal and ignore the activation range. Disabling this will help performance, but might be confusing for players in certain situations.
+This allows you to control whether villagers should be ticked outside of the activation range. This will make villagers proceed as normal and ignore the activation range. Disabling this will help performance, but might be confusing for players in certain situations. This may cause issues with iron farms and trade restocking.
 
 ##### nerf-spawner-mobs
 You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [`paper.yml`].
@@ -168,16 +168,16 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 #### [`paper.yml`]
 
 ##### despawn-ranges
-Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [`paper.yml`]).
+Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [`paper.yml`]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. In most cases your hard range should be larger than soft.
 
 ##### per-player-mob-spawns
-This option decides if mob spawns should account for how many mobs are around target player already. You can bypass a lot of issues regarding mob spawns being inconsistent due to players creating farms that take up the entire mobcap. This will also make the job easier to properly set entity limits, as it makes the math easier.
+This option decides if mob spawns should account for how many mobs are around target player already. You can bypass a lot of issues regarding mob spawns being inconsistent due to players creating farms that take up the entire mobcap. This will in effect enable a more singleplayer-like spawning experience, allowing you to set lower `spawn-limits`. Enabling this does come with a very slight performance impact, however it's impact is dwarfed by the saving in `spawn-limits` it allows.
 
 ##### max-entity-collisions
 Overwrites option with the same name in [`spigot.yml`]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases.
 
 ##### update-pathfinding-on-block-update
-Disabling this will result in less pathfinding being done, increasing performance, but mobs can appear more laggy; They will just passively update their path every 5 ticks (0.25 sec).
+Disabling this will result in less pathfinding being done, increasing performance. In some cases this will cause mobs to appear more laggy; They will just passively update their path every 5 ticks (0.25 sec).
 
 ##### fix-climbing-bypassing-cramming-rule
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
@@ -188,10 +188,10 @@ Enabling this will fix entities not being affected by cramming while climbing. T
 Enabling this option will save you bandwidth by preventing the server from sending empty position change packets (by default the server sends this packet for each entity even if the entity hasn't moved). May cause some issues with plugins that use client-side entities.
 
 ##### aggressive-towards-villager-when-lagging
-Enabling this will cause zombies to stop targeting villagers if the server is below the tps treshold set with `lagging-threshold` in [`purpur.yml`].
+Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [`purpur.yml`].
 
 ##### entities-can-use-portals
-This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread.
+This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread. This has the side effect of entities not being able to go through portals.
 
 ##### villager.brain-ticks
 This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistant/buggy.
