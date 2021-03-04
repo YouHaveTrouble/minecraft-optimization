@@ -16,3 +16,6 @@ Shared hosts are usually the cheapest option, and that's for a valid reason. The
 
 ## Avoid datapacks that use command functions
 Datapacks that run commands are extremely laggy. It may not be much with a few players on, but that doesn't scale well with the playercount and will lag your server pretty quickly as you gain players. Datapacks that modify biomes, loot tables, etc are fine. You're better off looking for a plugin alternative.
+
+## Choosing hardware
+Don't just go off how much RAM you need. That's basically a non-issue, as you can run 100+ players on less than 16GB RAM with a lot of room to spare (unless you're using questionable plugins that cache unnecessary things). CPU is probably most important piece of the puzzle. You want something that [ranks good on single core performance](https://www.cpubenchmark.net/singleThread.html), as server's main thread runs on just one thread. It's important to note that this does not mean the entirety of the server uses only one thread. Multiple threads are utilised for quite some time now in systems like async chunk loading on paper. You should absolutely avoid HDD drives. Their speeds are simply way too slow to to justify running a server on them, and minecraft is heavy on I/O operations, especially with high viewdistances and higher playercounts.
