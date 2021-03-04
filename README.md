@@ -91,7 +91,7 @@ https://pl3xgaming.github.io/PurpurDocs/Configuration/#use-alternate-keepalive
 #### [`spigot.yml`]
 
 ##### view-distance
-View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes mobs being active, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existance of `no-tick-view-distance`.
+View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes mobs being active, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`.
 
 #### [`paper.yml`]
 
