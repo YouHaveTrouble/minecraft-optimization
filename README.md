@@ -3,8 +3,6 @@
 
 Guide for version 1.16.5
 
-WARNING: This version of the guide has an experimental layout that is not yet complete!
-
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 ## Table of Contents
