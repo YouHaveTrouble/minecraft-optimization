@@ -178,7 +178,7 @@ Lobotomized villagers are stripped from their AI and only restock their offers e
 This decides the distance between the items and exp orbs to be merged, reducing the amount of items ticking on the ground. Setting this too high will lead to the illusion of items or exp orbs disappearing as they merge together.
 
 #### hopper-transfer
-Time peroid in ticks that hoppers will wait to move an item. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems.
+Time in ticks that hoppers will wait to move an item. Increasing this will help improve performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems.
 
 #### hopper-check
 Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems.
@@ -195,7 +195,7 @@ When enabled, the redstone system is replaced by a faster and alternative versio
 `InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
 
 #### mob-spawner-tick-rate
-This option lets you configure how often spawners should be ticked. Higher values mean less lag if you have a lot of spawners, but spawners will spawn mobs less often if you increase this.
+This option lets you configure how often spawners should be ticked. Higher values mean less lag if you have a lot of spawners, but mobs will spawn less often if you increase this.
 
 #### optimize-explosions
 Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
@@ -204,13 +204,13 @@ Setting this to `true` replaces the vanilla explosion algorithm with a faster on
 Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
 #### treasure-maps-return-already-discovered
-Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience server hangs or crashes when generating new treasure maps.
+Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps.
 
 #### grass-spread-tick-rate
 Time in ticks between the server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without it being noticeable.
 
 #### container-update-tick-rate
-Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens). Increasing this value makes it easier for players to experience desync when interacting with inventories (ghost items).
+Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
 
 #### non-player-arrow-despawn-rate
 Time in ticks after which arrows shot by mobs should disappear after hitting something. Players can't pick these up anyway, so you may aswell set this to something like `20`.
