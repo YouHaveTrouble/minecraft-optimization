@@ -23,9 +23,11 @@ Taking the previous analogy from this section, consider this:
 
 Smaller amounts of memory are faster to clean up by garbage collection. The more data garbage collection has to filter through, more time the collection will take, possibly stalling your server.
 
-## "Async" workload and server oversleep
+## Async workload and server oversleep
 
 Consider the following analogy (by [BillyGalbreath](https://github.com/BillyGalbreath)):
+
+### Oversleep
 
 > Imagine you have a job where you work 12 hours a day. The other 12 hours of the day someone else comes in to do that job. the two of you alternate days and nights.
   If things go smoothly, you end your days within your allotted time, or earlier. On bad days you have to stay late and work overtime until the job is finished. Same applies for the night time worker.
@@ -34,6 +36,8 @@ Consider the following analogy (by [BillyGalbreath](https://github.com/BillyGalb
 
 Doing things asynchronously isn't always better, and is not magical solution to every problem. In some cases doing things async can even hurt performance. Consider another analogy, also based on [BillyGalbreath's](https://github.com/BillyGalbreath) analogy:
 
-> What is the fastest way of going to your neighbours house? A car is pretty fast, so why not try that. It's definitely faster than you walking, but when you calculate in having to get in the car, buckle up, start the engine, reverse out into the road, drive to the next driveway, pull in, kill the engine, unbuckle and get out, and just walking it turns out that just walking would have been faster.
+### Async programming
+
+> What is the fastest way of going to your neighbours house? A car is pretty fast, so why not try that. It's definitely faster than you walking, but when you calculate in having to get in the car, buckle up, start the engine, reverse out into the road, drive to the next driveway, pull in, kill the engine, unbuckle and get out, it turns out that just walking would have been faster.
 
 Async operations usually require overhead to take place, like the steps required to enter and exit the car before being able to drive. Sometimes it's just not worth it to use.
