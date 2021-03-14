@@ -4,7 +4,7 @@ This page will help you understand basic concepts behind hosting a minecraft ser
 
 ## RAM allocation and Garbage Collection (GC)
 
-#### Your startup Xms and Xmx flags should always have the same value.
+### Your startup Xms and Xmx flags should always have the same value.
 
 Consider the following analogy:
 
@@ -13,7 +13,7 @@ Consider the following analogy:
 
 If you Xms is lower than Xmx your CPU has to take resources to increase the amount of allocated memory each time it hits current allocation limit. By setting equal values for those you allocate all the memory at the start, saving your cpu's time on runtime.
 
-#### You shouldn't allocate too much RAM
+### You shouldn't allocate too much RAM
 
 Allocating too much memory can hurt your server the same way as allocating too little.
 
