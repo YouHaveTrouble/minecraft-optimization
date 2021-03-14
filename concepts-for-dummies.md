@@ -25,9 +25,9 @@ Smaller amounts of memory are faster to clean up by garbage collection. The more
 
 ## Async workload and server oversleep
 
-Consider the following analogy (by [BillyGalbreath](https://github.com/BillyGalbreath)):
-
 ### Oversleep
+
+Consider the following analogy (by [BillyGalbreath](https://github.com/BillyGalbreath)):
 
 > Imagine you have a job where you work 12 hours a day. The other 12 hours of the day someone else comes in to do that job. the two of you alternate days and nights.
   If things go smoothly, you end your days within your allotted time, or earlier. On bad days you have to stay late and work overtime until the job is finished. Same applies for the night time worker.
