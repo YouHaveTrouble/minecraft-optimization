@@ -23,6 +23,12 @@ Taking the previous analogy from this section, consider this:
 
 Smaller amounts of memory are faster to clean up by garbage collection. The more data garbage collection has to filter through, the more time the collection will take, possibly stalling your server.
 
+### Java will always use more memory than you specified
+
+> Imagine you have a storage box, that is filled to the brim. There is absolutely no free space inside. That storage box is your allocated memory. If you wanted to clean it up, you would need to take some things outside of it to check if they are of any use. In order to do that you need the space outside of the storage box.
+
+Java needs extra memory to check what data can be removed. That's why there is usually an overhead to the RAM you allocated via your Xms and Xmx flags. If there isn't enough memory for that, you will get an Out of Memory error.
+
 ## Async workload and server oversleep
 
 ### Oversleep
