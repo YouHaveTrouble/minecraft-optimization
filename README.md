@@ -193,7 +193,7 @@ Controls the gradient in which mobs are ticked. DEAR works on a gradient instead
 Enabling this option will allow the tracker to use multiple threads which increases the tracker efficiency on servers with multiple cores. The tracker will be spread throughout all of the cores the server can utilize to reduce single-threaded load. This may cause worse performance depending on how the server is set up. Use with caution!
 
 ##### tracker.unsafe-async-packets
-Sends tracker packets asynchronously. This improves performance of the multithreaded tracker but has a high chance of 
+Sends tracker packets asynchronously. This improves performance of the multithreaded tracker but has a high chance of breaking plugins that utilize the tracker. Only enable if you know that your plugins do not use the entity tracker in a breaking way. Use with caution!
 
 #### [`purpur.yml`]
 
