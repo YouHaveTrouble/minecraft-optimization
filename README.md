@@ -183,10 +183,10 @@ Enabling this will fix entities not being affected by cramming while climbing. T
 
 #### [`airplane.air`]
 
-##### activation-range.max-tick-freq
+##### max-tick-freq
 This option defines how often an entity located far from the player is ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior.
 
-##### activation-range.activation-dist-mod
+##### activation-dist-mod
 Controls the gradient in which mobs are ticked. Airplane's DEAR ticks entities that are farther away from players less. DEAR works on a gradient instead of a hard cutoff like EAR. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
 
 ##### tracker.multithreaded
