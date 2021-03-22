@@ -21,6 +21,7 @@ Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization
         * [bukkit.yml](#bukkityml)
         * [spigot.yml](#spigotyml)
         * [paper.yml](#paperyml-1)
+        * [airplane.air](#airplaneair)
         * [purpur.yml](#purpuryml-1)
     * [Misc](#misc)
         * [spigot.yml](#spigotyml-1)
@@ -180,6 +181,20 @@ Disabling this will result in less pathfinding being done, increasing performanc
 ##### fix-climbing-bypassing-cramming-rule
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
 
+#### [`airplane.air`]
+
+##### activation-range.max-tick-freq
+This option defines how often an entity located far from the player is ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior.
+
+##### activation-range.activation-dist-mod
+Controls the gradient in which mobs are ticked. Airplane's DEAR ticks entities that are farther away from players less. DEAR works on a gradient instead of a hard cutoff like EAR. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
+
+##### tracker.multithreaded
+Enabling this option will allow the tracker to use multiple threads which increases the tracker efficiency on servers with multiple cores. This may cause worse performance depending on how the server is set up. Use with caution!
+
+##### tracker.unsafe-async-packets
+Sends tracker packets asynchronously. This improves performance of the multithreaded tracker but has a high chance of breaking plugins that utilize the tracker. Use with caution!
+
 #### [`purpur.yml`]
 
 ##### dont-send-useless-entity-packets
@@ -309,3 +324,4 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [`paper.yml`]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [`purpur.yml`]: https://purpur.pl3x.net/docs
 [`tuinity.yml`]: https://github.com/Spottedleaf/Tuinity/wiki/Config
+[`airplane.air`]: https://airplane.gg/config
