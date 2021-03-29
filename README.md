@@ -5,39 +5,7 @@ Guide for version 1.16.5
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
-## Table of Contents
-* [Intro](#intro)
-* [Preparations](#preparations)
-    * [Server jar](#server-jar)
-    * [Map pregen](#map-pregen)
-* [Configurations](#configurations)
-    * [Networking](#networking)
-        * [server.properties](#serverproperties)
-        * [purpur.yml](#purpuryml)
-    * [Chunks](#chunks)
-        * [spigot.yml](#spigotyml)
-        * [paper.yml](#paperyml)
-    * [Mobs](#mobs)
-        * [bukkit.yml](#bukkityml)
-        * [spigot.yml](#spigotyml-1)
-        * [paper.yml](#paperyml-1)
-        * [airplane.air](#airplaneair)
-        * [purpur.yml](#purpuryml-1)
-    * [Misc](#misc)
-        * [spigot.yml](#spigotyml-2)
-        * [paper.yml](#paperyml-2)
-        * [purpur.yml](#purpuryml-2)
-    * [Helpers](#helpers)
-        * [paper.yml](#paperyml-3)
-* [Java startup flags](#java-startup-flags)
-* ["Too good to be true" plugins](#too-good-to-be-true-plugins)
-    * [Plugins removing ground items](#plugins-removing-ground-items)
-    * [Mob stacker plugins](#mob-stacker-plugins)
-    * [Plugins enabling/disabling other plugins](#plugins-enablingdisabling-other-plugins)
-* [What's lagging? - measuring performance](#whats-lagging---measuring-performance)
-    * [mspt](#mspt)
-    * [timings](#timings)
-    * [spark](#spark)
+Use the table of contents located above (next to `README.md`) to easily navigate throughout this guide.
 
 ## Intro
 There will never be a guide that will give you perfect results. Each server has their own needs and limits on how much you can or are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs is what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within this guide, you're free to open an issue or set up a pull request.
