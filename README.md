@@ -18,7 +18,7 @@ Your choice of server software can make a huge difference in performance and api
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - This is the more popular server software that aims to improve performance while also fix gameplay and mechanics inconsistencies
 * [Tuinity](https://github.com/Spottedleaf/Tuinity) - A fork of paper that aims at improving server performance further than paper
-* [Airplane](https://github.com/Technove/AirplaneLite) - A fork of tuinity that aims at improving server performance further than tuinity
+* [Airplane](https://github.com/Technove/Airplane) - A fork of tuinity that aims at improving server performance further than tuinity
 * [Purpur](https://github.com/pl3xgaming/Purpur) - A fork of airplane that aims at giving the server owner more freedom in feature configurability
 
 You should stay away from:
@@ -156,12 +156,6 @@ This option defines the slowest amount entities farthest from players will be ti
 
 ##### activation-dist-mod
 Controls the gradient in which mobs are ticked. DEAR works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DEAR will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
-
-##### tracker.multithreaded
-Enabling this option will allow the tracker to use multiple threads which increases the tracker efficiency on servers with multiple cores. The tracker will be spread throughout all of the cores the server can utilize to reduce single-threaded load. This may cause worse performance depending on how the server is set up. Use with caution!
-
-##### tracker.unsafe-async-packets
-Sends tracker packets asynchronously. This improves performance of the multithreaded tracker but has a high chance of breaking plugins that utilize the tracker. Only enable if you know that your plugins do not use the entity tracker in a breaking way. Use with caution!
 
 #### [`purpur.yml`]
 
