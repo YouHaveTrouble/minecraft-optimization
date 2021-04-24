@@ -38,7 +38,7 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ### Networking
 
-#### [`server.properties`]
+#### [server.properties]
 
 ##### network-compression-threshold
 
@@ -46,7 +46,7 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some cpu resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
-#### [`purpur.yml`]
+#### [purpur.yml]
 
 ##### use-alternate-keepalive
 
@@ -61,7 +61,7 @@ You can enable purpur's alternate keepalive system so players with bad connectio
 
 ### Chunks
 
-#### [`spigot.yml`]
+#### [spigot.yml]
 
 
 
@@ -69,9 +69,9 @@ You can enable purpur's alternate keepalive system so players with bad connectio
 
 `Good starting value: 4`
 
-View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [`spigot.yml`], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks without ticking them. This effectively allows players to see further without the same performance impacts.
+View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [spigot.yml], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks without ticking them. This effectively allows players to see further without the same performance impacts.
 
-#### [`paper.yml`]
+#### [paper.yml]
 
 ##### no-tick-view-distance
 
@@ -140,7 +140,7 @@ Here you can disable armor stand collisions. This will help if you have a lot of
 
 ### Mobs
 
-#### [`bukkit.yml`]
+#### [bukkit.yml]
 
 ##### spawn-limits
 
@@ -170,13 +170,13 @@ Good starting values:
 
 This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`. Setting this higher also allows your server to better cope with areas where mob spawning is disabled.
 
-#### [`spigot.yml`]
+#### [spigot.yml]
 
 ##### mob-spawn-range
 
 `Good starting value: 2`
 
-Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [`bukkit.yml`]'s `spawn-limits`. Setting this lower will make it feel as if there are more mobs around you. This should be lower than or equal to your view distance, and never larger than your hard despawn range / 16.
+Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [bukkit.yml]'s `spawn-limits`. Setting this lower will make it feel as if there are more mobs around you. This should be lower than or equal to your view distance, and never larger than your hard despawn range / 16.
 
 ##### entity-activation-range
 
@@ -218,9 +218,9 @@ This allows you to control whether villagers should be ticked outside of the act
 
 `Good starting value: true`
 
-You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [`paper.yml`].
+You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper.yml].
 
-#### [`paper.yml`]
+#### [paper.yml]
 
 ##### despawn-ranges
 
@@ -230,7 +230,7 @@ Good starting values:
       hard: 56
 ```
 
-Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [`paper.yml`]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(view-distance * 16) +8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
+Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper.yml]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(view-distance * 16) +8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
 
 ##### per-player-mob-spawns
 
@@ -242,7 +242,7 @@ This option decides if mob spawns should account for how many mobs are around ta
 
 `Good starting value: 2`
 
-Overwrites option with the same name in [`spigot.yml`]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
+Overwrites option with the same name in [spigot.yml]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
 
 ##### update-pathfinding-on-block-update
 
@@ -256,7 +256,7 @@ Disabling this will result in less pathfinding being done, increasing performanc
 
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
 
-#### [`airplane.air`]
+#### [airplane.air]
 
 ##### max-tick-freq
 
@@ -270,7 +270,7 @@ This option defines the slowest amount entities farthest from players will be ti
 
 Controls the gradient in which mobs are ticked. DEAR works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DEAR will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
 
-#### [`purpur.yml`]
+#### [purpur.yml]
 
 ##### dont-send-useless-entity-packets
 
@@ -282,7 +282,7 @@ Enabling this option will save you bandwidth by preventing the server from sendi
 
 `Good starting value: false`
 
-Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [`purpur.yml`].
+Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [purpur.yml].
 
 ##### entities-can-use-portals
 
@@ -306,7 +306,7 @@ Lobotomized villagers are stripped from their AI and only restock their offers e
 
 ### Misc
 
-#### [`spigot.yml`]
+#### [spigot.yml]
 
 ##### merge-radius
 
@@ -330,7 +330,7 @@ Time in ticks that hoppers will wait to move an item. Increasing this will help 
 
 Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and item sorting systems relying on water streams.
 
-#### [`paper.yml`]
+#### [paper.yml]
 
 ##### alt-item-despawn-rate
 
@@ -403,7 +403,7 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
-#### [`purpur.yml`]
+#### [purpur.yml]
 
 ##### disable-treasure-searching
 
@@ -421,7 +421,7 @@ Allows you to teleport the player to the world spawn if they happen to be outsid
 
 ### Helpers
 
-#### [`paper.yml`]
+#### [paper.yml]
 
 ##### anti-xray
 
@@ -474,10 +474,10 @@ To get timings of your server you just need to execute the `/timings paste` comm
 
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
-[`server.properties`]: https://minecraft.gamepedia.com/Server.properties
-[`bukkit.yml`]: https://bukkit.gamepedia.com/Bukkit.yml
-[`spigot.yml`]: https://www.spigotmc.org/wiki/spigot-configuration/
-[`paper.yml`]:  https://paper.readthedocs.io/en/latest/server/configuration.html
-[`purpur.yml`]: https://purpur.pl3x.net/docs
-[`tuinity.yml`]: https://github.com/Spottedleaf/Tuinity/wiki/Config
-[`airplane.air`]: https://airplane.gg/config
+[server.properties]: https://minecraft.gamepedia.com/Server.properties
+[bukkit.yml]: https://bukkit.gamepedia.com/Bukkit.yml
+[spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
+[paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
+[purpur.yml]: https://purpur.pl3x.net/docs
+[tuinity.yml]: https://github.com/Spottedleaf/Tuinity/wiki/Config
+[airplane.air]: https://airplane.gg/config
