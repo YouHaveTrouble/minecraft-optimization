@@ -62,8 +62,6 @@ You can enable purpur's alternate keepalive system so players with bad connectio
 
 ### [spigot.yml]
 
-
-
 #### view-distance
 
 `Good starting value: 4`
@@ -225,6 +223,7 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 
 ```
 Good starting values:
+
       soft: 30
       hard: 56
 ```
@@ -311,6 +310,7 @@ Lobotomized villagers are stripped from their AI and only restock their offers e
 
 ```
 Good starting values:
+
       item: 3.5
       exp: 4.0
 ```
@@ -335,6 +335,7 @@ Time in ticks between hoppers checking for an item above them or in the inventor
 
 ```
 Good starting values:
+
       enabled: true
       items:
           COBBLESTONE: 300
