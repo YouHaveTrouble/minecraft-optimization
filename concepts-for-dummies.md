@@ -54,6 +54,7 @@ Consider another analogy, also by [BillyGalbreath](https://github.com/BillyGalbr
 
 Async operations usually require overhead to take place, like the steps required to enter and exit the car before being able to drive. You should generally only do things async if you know what you're doing. It's not the "magical cure" for improving performance, it can even hurt it if done wrong.
 
+## Server inner-workings
 
 ### Keep your amount of worlds to a minimum
 
