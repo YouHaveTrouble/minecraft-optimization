@@ -48,8 +48,17 @@ Doing things asynchronously isn't always better, and it's not a magical solution
 
 ### Async programming
 
-In some cases doing things async can even hurt performance. Consider another analogy, also by [BillyGalbreath](https://github.com/BillyGalbreath):
+Consider another analogy, also by [BillyGalbreath](https://github.com/BillyGalbreath):
 
 > What is the fastest way of going to your neighbours house? A car is pretty fast, so why not try that. It's definitely faster than you walking, but when you calculate in having to get in the car, buckle up, start the engine, reverse out into the road, drive to the next driveway, pull in, kill the engine, unbuckle and get out, it turns out that just walking would have been faster.
 
-Async operations usually require overhead to take place, like the steps required to enter and exit the car before being able to drive. You should generally only do things async if you know what you're doing. It's not the "magical cure" for improving performance.
+Async operations usually require overhead to take place, like the steps required to enter and exit the car before being able to drive. You should generally only do things async if you know what you're doing. It's not the "magical cure" for improving performance, it can even hurt it if done wrong.
+
+
+### Keep your amount of worlds to a minimum
+
+Consider another analogy, also by [BillyGalbreath](https://github.com/BillyGalbreath):
+
+> Imagine you are the server tick loop, and I tell you I need you to run around your neighborhood block in 5 minutes. You can do this easily, with lots of time to spare, even. Now i want you to stop at everyone's yard and inspect them for any animals or items and either stack/remove them if there's too many. Ok, still pretty doable within 5 minutes. Now do this for 3 blocks (overworld, nether, the end). Ok, we're getting tight now. ok, so lets add another block for spawn, and other for farms, and another for resource gathering (6 blocks). you could probably do it right around 5 minutes. but then theres lots of other tasks you have to be doing while you're running those blocks, not just the animals/items task i sent you out on. Now i need you to do 15 blocks. No way you're getting it done in time.
+
+Thats how the server's tick loop works, but it has 50 milliseconds to do all that work. Adding more worlds just compounds the number of tasks it has to do, and it will quickly run out of time to do it all in if you add too many worlds/plugins/tasks/etc.
