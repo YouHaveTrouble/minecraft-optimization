@@ -15,10 +15,10 @@ There will never be a guide that will give you perfect results. Each server has 
 Your choice of server software can make a huge difference in performance and api possibilities. There are currently multiple viable popular server jars, but there are also a few that you should stay away from for various reasons.
 
 Recommended top picks:
-* [Paper](https://github.com/PaperMC/Paper) - This is the more popular server software that aims to improve performance while also fix gameplay and mechanics inconsistencies
-* [Tuinity](https://github.com/Spottedleaf/Tuinity) - A fork of paper that aims at improving server performance further than paper
-* [Airplane](https://github.com/Technove/Airplane) - A fork of tuinity that aims at improving server performance further than tuinity
-* [Purpur](https://github.com/pl3xgaming/Purpur) - A fork of airplane that aims at giving the server owner more freedom in feature configurability
+* [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
+* [Tuinity](https://github.com/Spottedleaf/Tuinity) - Paper fork that includes even more high-performance patches.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features and the freedom of customization.
+* [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said.
