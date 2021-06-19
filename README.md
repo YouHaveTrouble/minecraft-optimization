@@ -56,7 +56,7 @@ This allows you to set the cap for the size of a packet before the server attemp
 You can enable purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.
 
 > Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
-~ https://pl3xgaming.github.io/PurpurDocs/Configuration/#use-alternate-keepalive
+~ https://purpur.pl3x.net/docs/Configuration/#use-alternate-keepalive
 
 ---
 
