@@ -1,6 +1,6 @@
 # Minecraft server optimization guide
 
-Note for early 1.17 users that are on vanilla, fabric or spigot - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on paper and its forks, but on vanilla up to paper you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
+Note for users that are on vanilla, fabric or spigot (or anything below paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
 Guide for version 1.16.5
 
@@ -82,7 +82,7 @@ This option allows you to set the maximum distance in chunks that the players wi
 
 `Good starting value: 10`
 
-This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
+This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks. If you use tuinity, you should change the option with the same name in `tuinity.yml`, as it overwrites the one from `paper.yml`. 
 
 #### max-auto-save-chunks-per-tick
 
@@ -122,7 +122,11 @@ Good starting values:
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
+#### seed-based-feature-search-loads-chunks
 
+`Good starting value: true`
+
+While setting this to `false` will help performance when your `treasure-maps-return-already-discovered` is on `false`, it can result in unexpected behavior, like structures not actually being in the spot marked on the map sometimes. Toggle it if you don't see it as an issue.
 
 ---
 
