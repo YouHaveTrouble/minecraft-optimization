@@ -123,17 +123,6 @@ Good starting values:
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
 
-#### armor-stands-tick
-
-`Good starting value: false`
-
-In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it. This will prevent armor stands from being pushed by water or being affected by gravity.
-
-#### armor-stands-do-collision-entity-lookups
-
-`Good starting value: false`
-
-Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
 ---
 
@@ -255,6 +244,18 @@ Disabling this will result in less pathfinding being done, increasing performanc
 `Good starting value: true`
 
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
+
+#### armor-stands-tick
+
+`Good starting value: false`
+
+In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it. This will prevent armor stands from being pushed by water or being affected by gravity.
+
+#### armor-stands-do-collision-entity-lookups
+
+`Good starting value: false`
+
+Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
 ### [airplane.air]
 
