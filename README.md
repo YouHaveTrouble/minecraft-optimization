@@ -70,6 +70,14 @@ You can enable purpur's alternate keepalive system so players with bad connectio
 
 View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [spigot.yml], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks without ticking them. This effectively allows players to see further without the same performance impacts.
 
+### [tuinity.yml]
+
+#### delay-chunkunloads-by
+
+`Good starting value: 10`
+
+This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
+
 ### [paper.yml]
 
 #### no-tick-view-distance
@@ -77,12 +85,6 @@ View-distance is distance in chunks around the player that the server will tick.
 `Good starting value: 7`
 
 This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `view-distance` and still let players see further. It's important to know that while the chunks beyond actual `view-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. As of now chunks are sent to the client regardless of their view distance setting, so going on higher values for this option can cause issues for players with slower connections.
-
-#### delay-chunk-unloads-by
-
-`Good starting value: 10`
-
-This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks. If you use tuinity, you should change the option with the same name in `tuinity.yml`, as it overwrites the one from `paper.yml`. 
 
 #### max-auto-save-chunks-per-tick
 
