@@ -101,23 +101,23 @@ When enabled, prevents players from moving into unloaded chunks and causing sync
 ```
 Good starting values:
 
-    arrow: 16
-    dragonfireball: 3
-    egg: 8
-    ender_pearl: 8
-    fireball: 8
-    firework: 8
-    largefireball: 8
-    lingeringpotion: 8
-    llamaspit: 3
-    shulkerbullet: 8
-    sizedfireball: 8
-    snowball: 8
-    spectralarrow: 16
-    splashpotion: 3
-    thrownexpbottle: 3
-    trident: 16
-    witherskull: 4
+      arrow: 16
+      dragonfireball: 3
+      egg: 8
+      ender_pearl: 8
+      fireball: 8
+      firework: 8
+      largefireball: 8
+      lingeringpotion: 8
+      llamaspit: 3
+      shulkerbullet: 8
+      sizedfireball: 8
+      snowball: 8
+      spectralarrow: 16
+      splashpotion: 3
+      thrownexpbottle: 3
+      trident: 16
+      witherskull: 4
 ```
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
