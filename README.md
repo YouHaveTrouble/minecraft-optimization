@@ -19,7 +19,7 @@ Your choice of server software can make a huge difference in performance and api
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
 * [Tuinity](https://github.com/Spottedleaf/Tuinity) - Paper fork that includes even more high-performance patches.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features, the freedom of customization, and even more high-performance patches.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features, the freedom of customization, and aims to further improve server performance.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said.
