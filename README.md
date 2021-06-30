@@ -2,7 +2,7 @@
 
 Note for users that are on vanilla, fabric or spigot (or anything below paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
-Guide for version 1.16.5
+Guide for version 1.17. Some things may still apply on 1.15 - 1.16.
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
