@@ -157,7 +157,7 @@ Good starting values:
     monster-spawn: 10
     animal-spawns: 400
     water-spawns: 400
-    water-ambient-ambient: 400
+    water-ambient-spawns: 400
     ambient-spawns: 400
 ```
 
