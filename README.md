@@ -102,6 +102,7 @@ When enabled, prevents players from moving into unloaded chunks and causing sync
 ```
 Good starting values:
 
+      experience_orb: 16
       arrow: 16
       dragonfireball: 3
       egg: 8
