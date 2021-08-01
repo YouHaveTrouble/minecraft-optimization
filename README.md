@@ -111,7 +111,7 @@ Good starting values:
       firework: 8
       largefireball: 8
       lingeringpotion: 8
-      llamaspit: 3
+      llama_spit: 3
       shulkerbullet: 8
       sizedfireball: 8
       snowball: 8
