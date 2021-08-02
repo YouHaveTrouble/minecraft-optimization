@@ -145,7 +145,7 @@ Good starting values:
     animals: 5
     water-animals: 2
     water-ambient: 2
-    ambient: 0
+    ambient: 1
 ```
 
 The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using tuinity, you can set mob limits per world in [`tuinity.yml`].
@@ -453,15 +453,18 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla minecraft and minecraft server softwares in upcoming version 1.17 will require Java 16 or higher](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615). Good 2021 resolution to finally update your version of Java! (or at least inform your host so they can handle the migration). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [AdoptOpenJDK](https://adoptopenjdk.net). Alternative JVM implementations such as OpenJ9 can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla minecraft and minecraft server software in version 1.17 requires Java 16 or higher](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [AdoptOpenJDK](https://adoptopenjdk.net). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
 
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
 # Linux cpu scaling 
 Some hosts might ship machines running in "PowerSave" mode. This can result in nearly 25% lower clock speeds and thus vastly lower single threaded performance. This can lead to severly worse performance than setting the cpu scaling to performance mode.
 
-On Debian / Ubuntu running `Cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` will show the cpus performance profile.
-Then running `echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` will set to performance.
+For Debian / ubuntu
+
+`Cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` Shows the cpus performance profile.
+
+`echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` Sets profile to performance.
 
 # "Too good to be true" plugins
 
@@ -484,6 +487,13 @@ Great way to see what might be going on when your server is lagging are timings.
 
 To get timings of your server you just need to execute the `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
 
+However, when timings are on a % of the server thread is used by the timings itself. This can vary from 3-20%. Meaning if timings are not needed it is best to disable them either by `/timings off` (This would need to be done after every restart), or disabling timings in paper.yml
+```
+timings:
+. . .
+  enabled: false
+  ```
+  
 ## spark
 [Spark](https://github.com/lucko/spark) is a plugin that allows you to profile your servers CPU and memory usage. You can read on how to use it [on its wiki](https://spark.lucko.me/docs/). There's also a guide on how to find the cause of lag spikes [here](https://spark.lucko.me/docs/guides/Finding-lag-spikes).
 
