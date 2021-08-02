@@ -457,6 +457,12 @@ If this option is greater that `0`, players above the set y level will be damage
 
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
+# Linux cpu scaling 
+Hosts such as OVH and Hetzner are known to ship machines running in "PowerSave" mode. This can result in around 25% lower clock speeds and thus vastly lower single threaded performance, leading to less TPS than the cpu is capable of.
+
+On Debian / Ubuntu running `Cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` will show the cpus performance profile.
+Then running `echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` will set to performance.
+
 # "Too good to be true" plugins
 
 ## Plugins removing ground items
