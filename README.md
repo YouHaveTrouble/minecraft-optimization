@@ -18,9 +18,8 @@ Your choice of server software can make a huge difference in performance and api
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Tuinity](https://github.com/Spottedleaf/Tuinity) - Paper fork that includes even more high-performance patches.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features and the freedom of customization.
-* [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Paper fork focused on features and the freedom of customization.
+* [Airplane](https://github.com/Technove/Airplane) - Paper fork that aims to further improve server performance.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
@@ -83,7 +82,7 @@ This option allows you to set the maximum distance in chunks that the players wi
 
 `Good starting value: 10`
 
-This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks. If you use tuinity, you should change the option with the same name in `tuinity.yml`, as it overwrites the one from `paper.yml`. 
+This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
 
 #### max-auto-save-chunks-per-tick
 
@@ -148,7 +147,7 @@ Good starting values:
     ambient: 1
 ```
 
-The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using tuinity, you can set mob limits per world in [`tuinity.yml`].
+The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using Paper, you can set mob limits per world in [`paper.yml`].
 
 #### ticks-per
 
@@ -497,5 +496,4 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [purpur.yml]: https://purpur.pl3x.net/docs
-[tuinity.yml]: https://github.com/Spottedleaf/Tuinity/wiki/Config
 [airplane.air]: https://airplane.gg/config
