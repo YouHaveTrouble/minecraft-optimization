@@ -19,13 +19,13 @@ Your choice of server software can make a huge difference in performance and API
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
 * [Tuinity](https://github.com/Spottedleaf/Tuinity) - Paper fork that includes even more high-performance patches.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features and the freedom of customization.
-* [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance. **Note: Airplane is mainly made out of micro-optimizations, most of which don't really give any noticeable gains at all outside of extreme circumstances. The few features that do actually change the game often do so in unexpected and unwanted ways, the most notable one being DEAR. The Airplane team and community as a whole, have also been known to be negative towards end-users.**
+* [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
 * Mohist - "Mohist is programmed to be malicious, game-breaking, and very unstable!" - [Reasons why you shouldn't use it](https://essentialsx.net/do-not-use-mohist.html)
-* Any paid server jar that claims async anything - 99.99% chance of being a scam.
-* Bukkit/Craftbukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
+* Any paid server JAR that claims async anything - 99.99% chance of being a scam.
+* Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
 * Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
 
 ## Map pregen
