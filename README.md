@@ -263,7 +263,13 @@ In most cases you can safely set this to `false`. If you're using armor stands o
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
-### [airplane.air]
+### [airplane.yml]
+
+#### max-loads-per-projectile
+
+`Good starting value: 8`
+
+Specifies the maximum amount of chunks a projectile can load in its lifetime. Decreasing will reduce chunk loads caused by entity projectiles, but could cause issues with tridents, enderpearls, etc.
 
 #### max-tick-freq
 
@@ -273,9 +279,9 @@ This option defines the slowest amount entities farthest from players will be ti
 
 #### activation-dist-mod
 
-`Good starting value: 9`
+`Good starting value: 7`
 
-Controls the gradient in which mobs are ticked. DEAR works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DEAR will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
+Controls the gradient in which mobs are ticked. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
 
 ### [purpur.yml]
 
@@ -498,4 +504,4 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [purpur.yml]: https://purpur.pl3x.net/docs
 [tuinity.yml]: https://github.com/Spottedleaf/Tuinity/wiki/Config
-[airplane.air]: https://airplane.gg/config
+[airplane.yml]: https://github.com/TECHNOVE/Airplane/wiki
