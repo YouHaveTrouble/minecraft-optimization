@@ -19,7 +19,7 @@ Your choice of server software can make a huge difference in performance and api
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
 * [Tuinity](https://github.com/Spottedleaf/Tuinity) - Paper fork that includes even more high-performance patches.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Tuinity fork focused on features and the freedom of customization.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
 * [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance.
 
 You should stay away from:
@@ -262,6 +262,26 @@ In most cases you can safely set this to `false`. If you're using armor stands o
 `Good starting value: false`
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
+
+#### tick-rates
+
+```
+Good starting values:
+
+    sensor:
+        villager:
+          secondarypoisensor: 80
+          nearestbedsensor: 80
+          villagerbabiessensor: 40
+          playersensor: 40
+          nearestlivingentitysensor: 40
+      behavior:
+        villager:
+          validatenearbypoi: 60
+          acquirepoi: 120
+```
+
+This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
 ### [airplane.yml]
 
