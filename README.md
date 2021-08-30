@@ -107,21 +107,22 @@ Good starting values:
       dragon_fireball: 3
       egg: 8
       ender_pearl: 8
-      ender_signal: 8
+      eye_of_ender: 8
       fireball: 8
-      firework: 8
-      splash_potion: 8
+      small_fireball: 8
+      fireworks_rocket: 8
+      potion: 8
       llama_spit: 3
       shulker_bullet: 8
       snowball: 8
       spectral_arrow: 16
-      thrown_exp_bottle: 3
+      experience_bottle: 3
       trident: 16
       wither_skull: 4
       area_effect_cloud: 8
 ```
 
-With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
+With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
 #### seed-based-feature-search-loads-chunks
 
