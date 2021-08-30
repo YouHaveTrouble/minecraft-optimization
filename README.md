@@ -18,8 +18,8 @@ Your choice of server software can make a huge difference in performance and api
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Paper fork focused on features and the freedom of customization.
-* [Airplane](https://github.com/Technove/Airplane) - Paper fork that aims to further improve server performance.
+* [Airplane](https://github.com/Technove/Airplane) - Tuinity fork that aims to further improve server performance.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
@@ -103,25 +103,25 @@ Good starting values:
 
       experience_orb: 16
       arrow: 16
-      dragonfireball: 3
+      dragon_fireball: 3
       egg: 8
       ender_pearl: 8
+      eye_of_ender: 8
       fireball: 8
-      firework: 8
-      largefireball: 8
-      lingeringpotion: 8
-      llamaspit: 3
-      shulkerbullet: 8
-      sizedfireball: 8
+      small_fireball: 8
+      fireworks_rocket: 8
+      potion: 8
+      llama_spit: 3
+      shulker_bullet: 8
       snowball: 8
-      spectralarrow: 16
-      splashpotion: 3
-      thrownexpbottle: 3
+      spectral_arrow: 16
+      experience_bottle: 3
       trident: 16
-      witherskull: 4
+      wither_skull: 4
+      area_effect_cloud: 8
 ```
 
-With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. There is an list of all projectiles provided below. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
+With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
 #### seed-based-feature-search-loads-chunks
 
@@ -262,7 +262,33 @@ In most cases you can safely set this to `false`. If you're using armor stands o
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
-### [airplane.air]
+#### tick-rates
+
+```
+Good starting values:
+
+    sensor:
+        villager:
+          secondarypoisensor: 80
+          nearestbedsensor: 80
+          villagerbabiessensor: 40
+          playersensor: 40
+          nearestlivingentitysensor: 40
+      behavior:
+        villager:
+          validatenearbypoi: 60
+          acquirepoi: 120
+```
+
+This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
+
+### [airplane.yml]
+
+#### max-loads-per-projectile
+
+`Good starting value: 8`
+
+Specifies the maximum amount of chunks a projectile can load in its lifetime. Decreasing will reduce chunk loads caused by entity projectiles, but could cause issues with tridents, enderpearls, etc.
 
 #### max-tick-freq
 
@@ -272,9 +298,9 @@ This option defines the slowest amount entities farthest from players will be ti
 
 #### activation-dist-mod
 
-`Good starting value: 9`
+`Good starting value: 7`
 
-Controls the gradient in which mobs are ticked. DEAR works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DEAR will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DEAR closer to players, improving DEAR's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
+Controls the gradient in which mobs are ticked. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
 
 ### [purpur.yml]
 
@@ -468,7 +494,7 @@ For Debian / ubuntu
 # "Too good to be true" plugins
 
 ## Plugins removing ground items
-Absolutely unnecessary since they can be replaced with [merge radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rateenabled) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
+Absolutely unnecessary since they can be replaced with [merge radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rate) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
 
 ## Mob stacker plugins
 It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all due to the server constantly trying to spawn more mobs. The only "acceptable" use case is for spawners on servers with a large amount of spawners.
@@ -496,4 +522,4 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [purpur.yml]: https://purpur.pl3x.net/docs
-[airplane.air]: https://airplane.gg/config
+[airplane.yml]: https://github.com/TECHNOVE/Airplane/wiki
