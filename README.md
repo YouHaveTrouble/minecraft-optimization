@@ -18,7 +18,7 @@ Your choice of server software can make a huge difference in performance and api
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Airplane](https://github.com/Technove/Airplane)- Paper fork that aims to further improve server performance.
+* [Airplane](https://github.com/Technove/Airplane) - Paper fork that aims to further improve server performance.
 * [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
 
 You should stay away from:
