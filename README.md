@@ -1,6 +1,6 @@
 # Minecraft server optimization guide
 
-Note for users that are on vanilla, fabric or spigot (or anything below paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
+Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on Paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
 Guide for version 1.17. Some things may still apply on 1.15 - 1.16.
 
@@ -13,8 +13,8 @@ There will never be a guide that will give you perfect results. Each server has 
 
 # Preparations
 
-## Server jar
-Your choice of server software can make a huge difference in performance and api possibilities. There are currently multiple viable popular server jars, but there are also a few that you should stay away from for various reasons.
+## Server JAR
+Your choice of server software can make a huge difference in performance and API possibilities. There are currently multiple viable popular server JARs, but there are also a few that you should stay away from for various reasons.
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
@@ -24,12 +24,12 @@ Recommended top picks:
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
 * Mohist - "Mohist is programmed to be malicious, game-breaking, and very unstable!" - [Reasons why you shouldn't use it](https://essentialsx.net/do-not-use-mohist.html)
-* Any paid server jar that claims async anything - 99.99% chance of being a scam.
-* Bukkit/Craftbukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
+* Any paid server JAR that claims async anything - 99.99% chance of being a scam.
+* Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
 * Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
 
 ## Map pregen
-Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared cpu/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin.
+Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared CPU/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin.
 
 It's key to remember that the overworld, nether and the end have separate world borders that need to be set up for each world. The nether dimension is 8x smaller than the overworld (if not modified with a datapack), so if you set the size wrong your players might end up outside of the world border!
 
@@ -45,7 +45,7 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 `Good starting value: 256`
 
-This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some cpu resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
+This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
 ### [purpur.yml]
 
@@ -53,7 +53,7 @@ This allows you to set the cap for the size of a packet before the server attemp
 
 `Good starting value: true`
 
-You can enable purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.
+You can enable Purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.
 
 > Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
 ~ https://purpur.pl3x.net/docs/Configuration/#use-alternate-keepalive
@@ -236,7 +236,7 @@ This option decides if mob spawns should account for how many mobs are around ta
 
 `Good starting value: 2`
 
-Overwrites option with the same name in [spigot.yml]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inablity to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
+Overwrites option with the same name in [spigot.yml]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inability to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
 
 #### update-pathfinding-on-block-update
 
@@ -326,7 +326,7 @@ This option can disable portal usage of all entities besides the player. This pr
 
 `Good starting value: 2`
 
-This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistant/buggy.
+This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
 
 #### villager.lobotomize
 
@@ -478,16 +478,16 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla minecraft and minecraft server software in version 1.17 requires Java 16 or higher](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [AdoptOpenJDK](https://adoptopenjdk.net). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla Minecraft and Minecraft server software in version 1.17 requires Java 16 or higher](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
 
-Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
+Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
-# Linux cpu scaling 
-Some hosts might ship machines running in "PowerSave" mode. This can result in nearly 25% lower clock speeds and thus vastly lower single threaded performance. This can lead to severly worse performance than setting the cpu scaling to performance mode. Please note that this might be unavailable for VPS.
+# Linux CPU scaling 
+Some hosts might ship machines running in "PowerSave" mode. This can result in nearly 25% lower clock speeds and thus vastly lower single threaded performance. This can lead to severly worse performance than setting the CPU scaling to performance mode. Please note that this might be unavailable for VPS.
 
-For Debian / ubuntu
+For Debian / Ubuntu
 
-`cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` Shows the cpus performance profile.
+`cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` Shows the CPU's performance profile.
 
 `echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor` Sets profile to performance.
 
@@ -517,7 +517,7 @@ To get timings of your server you just need to execute the `/timings paste` comm
 
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
-[server.properties]: https://minecraft.gamepedia.com/Server.properties
+[server.properties]: https://minecraft.fandom.com/Server.properties
 [bukkit.yml]: https://bukkit.gamepedia.com/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
