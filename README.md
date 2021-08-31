@@ -110,7 +110,7 @@ Good starting values:
       eye_of_ender: 8
       fireball: 8
       small_fireball: 8
-      fireworks_rocket: 8
+      firework_rocket: 8
       potion: 8
       llama_spit: 3
       shulker_bullet: 8
@@ -268,7 +268,7 @@ Here you can disable armor stand collisions. This will help if you have a lot of
 ```
 Good starting values:
 
-    sensor:
+      sensor:
         villager:
           secondarypoisensor: 80
           nearestbedsensor: 80
