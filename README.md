@@ -374,6 +374,7 @@ Good starting values:
       enabled: true
       items:
           COBBLESTONE: 300
+          NETHERRACK: 300
 ```
 
 This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
