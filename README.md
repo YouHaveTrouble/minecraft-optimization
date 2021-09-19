@@ -2,7 +2,7 @@
 
 Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on Paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
-Guide for version 1.17. Some things may still apply on 1.15 - 1.16.
+Guide for version 1.17. Some things may still apply to 1.15 - 1.16.
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
@@ -22,8 +22,9 @@ Recommended top picks:
 * [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
 
 You should stay away from:
-* Yatopia & Sugarcane - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
-* Mohist - "Mohist is programmed to be malicious, game-breaking, and very unstable!" - [Reasons why you shouldn't use it](https://essentialsx.net/do-not-use-mohist.html)
+* Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
+* Sugarcane - Yatopia 2.0.
+* Mohist - "Mohist is programmed to be malicious, game-breaking, and very unstable" - [Reasons why you shouldn't use it](https://essentialsx.net/do-not-use-mohist.html)
 * Any paid server JAR that claims async anything - 99.99% chance of being a scam.
 * Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
 * Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
