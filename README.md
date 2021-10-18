@@ -146,6 +146,7 @@ Good starting values:
     animals: 5
     water-animals: 2
     water-ambient: 2
+    water-underground-creature: 3
     ambient: 1
 ```
 
@@ -160,6 +161,7 @@ Good starting values:
     animal-spawns: 400
     water-spawns: 400
     water-ambient-spawns: 400
+    water-underground-creature-spawns: 400
     ambient-spawns: 400
 ```
 
