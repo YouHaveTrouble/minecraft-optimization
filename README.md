@@ -18,8 +18,7 @@ Your choice of server software can make a huge difference in performance and API
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Airplane](https://github.com/Technove/Airplane) - Paper fork that aims to further improve server performance.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Airplane fork focused on features and the freedom of customization.
+* [Purpur](https://github.com/pl3xgaming/Purpur) - Paper fork focused on features and the freedom of customization.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
@@ -28,7 +27,7 @@ You should stay away from:
 * Any paid server JAR that claims async anything - 99.99% chance of being a scam.
 * Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
 * Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
-* Many forks further downstream from Airplane or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
+* Many forks further downstream from Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
 
 ## Map pregen
 Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared CPU/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin.
@@ -286,26 +285,6 @@ Good starting values:
 
 This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
-### [airplane.yml]
-
-#### max-loads-per-projectile
-
-`Good starting value: 8`
-
-Specifies the maximum amount of chunks a projectile can load in its lifetime. Decreasing will reduce chunk loads caused by entity projectiles, but could cause issues with tridents, enderpearls, etc.
-
-#### max-tick-freq
-
-`Good starting value: 20`
-
-This option defines the slowest amount entities farthest from players will be ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior.
-
-#### activation-dist-mod
-
-`Good starting value: 7`
-
-Controls the gradient in which mobs are ticked. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
-
 ### [purpur.yml]
 
 #### dont-send-useless-entity-packets
@@ -550,4 +529,3 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [purpur.yml]: https://purpur.pl3x.net/docs
-[airplane.yml]: https://github.com/TECHNOVE/Airplane/wiki
