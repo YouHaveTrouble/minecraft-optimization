@@ -4,6 +4,8 @@ Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) -
 
 Guide for version 1.18. Some things may still apply to 1.15 - 1.17.
 
+**PLEASE KEEP IN MIND THAT SOME THINGS ARE NOT YET UPDATED ON PAPER AND BEYOND**
+
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 Use the table of contents located above (next to `README.md`) to easily navigate throughout this guide.
@@ -47,6 +49,18 @@ It's key to remember that the overworld, nether and the end have separate world 
 `Good starting value: 256`
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
+
+#### simulation-distance
+
+`Good starting value: 4`
+
+Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will actually be ticked, aka. "things will happen in". This is here temporarily until Paper updates no-tick-view-distance patch.
+
+#### view-distance
+
+`Good starting value: 7`
+
+Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respect server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
 
 ### [purpur.yml]
 
