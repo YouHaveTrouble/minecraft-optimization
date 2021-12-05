@@ -138,12 +138,6 @@ Good starting values:
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
-#### seed-based-feature-search-loads-chunks
-
-`Good starting value: true`
-
-While setting this to `false` will help performance when your `treasure-maps-return-already-discovered` is on `false`, it can result in unexpected behavior, like structures not actually being in the spot marked on the map sometimes. Toggle it if you don't see it as an issue.
-
 ---
 
 ## Mobs
@@ -237,8 +231,30 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 ```
 Good starting values:
 
-      soft: 30
-      hard: 56
+      monster:
+        soft: 30
+        hard: 56
+      creature:
+        soft: 30
+        hard: 56
+      ambient:
+        soft: 30
+        hard: 56
+      axolotls:
+        soft: 30
+        hard: 56
+      underground_water_creature:
+        soft: 30
+        hard: 56
+      water_creature:
+        soft: 30
+        hard: 56
+      water_ambient:
+        soft: 30
+        hard: 56
+      misc:
+        soft: 30
+        hard: 56
 ```
 
 Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper.yml]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(view-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
@@ -301,12 +317,6 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 ### [purpur.yml]
 
-#### dont-send-useless-entity-packets
-
-`Good starting value: true`
-
-Enabling this option will save you bandwidth by preventing the server from sending empty position change packets (by default the server sends this packet for each entity even if the entity hasn't moved). May cause some issues with plugins that use client-side entities.
-
 #### aggressive-towards-villager-when-lagging
 
 `Good starting value: false`
@@ -324,12 +334,6 @@ This option can disable portal usage of all entities besides the player. This pr
 `Good starting value: 2`
 
 This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
-
-#### villager.lobotomize
-
-`Good starting value: true`
-
-Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
 ---
 
