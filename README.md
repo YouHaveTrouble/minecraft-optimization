@@ -164,7 +164,7 @@ The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is c
 ```
 Good starting values:
 
-    monster-spawn: 10
+    monster-spawns: 10
     animal-spawns: 400
     water-spawns: 400
     water-ambient-spawns: 400
