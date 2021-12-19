@@ -60,7 +60,9 @@ Currently Paper has not updated no-tick-view-distance patch, but Mojang has give
 
 `Good starting value: 7`
 
-Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respect server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
+Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
+
+The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
 
 ### [purpur.yml]
 
