@@ -21,7 +21,6 @@ Your choice of server software can make a huge difference in performance and API
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
 * [Pufferfish](https://github.com/pufferfish-gg/Pufferfish) - Paper fork that aims to further improve server performance.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Paper fork focused on features and the freedom of customization.
 
 You should stay away from:
 * Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
@@ -64,17 +63,6 @@ Currently Paper has not updated no-tick-view-distance patch, but Mojang has give
 Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
 
 The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
-
-### [purpur.yml]
-
-#### use-alternate-keepalive
-
-`Good starting value: true`
-
-You can enable Purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.
-
-> Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
-~ https://purpur.pl3x.net/docs/Configuration/#use-alternate-keepalive
 
 ---
 
@@ -152,7 +140,7 @@ With the help of this entry you can set limits to how many entities of specified
 ```
 Good starting values:
 
-    monsters: 20
+    monsters: 8
     animals: 5
     water-animals: 2
     water-ambient: 2
@@ -169,10 +157,10 @@ Good starting values:
 
     monster-spawns: 10
     animal-spawns: 400
-    water-spawns: 400
-    water-ambient-spawns: 400
-    water-underground-creature-spawns: 400
-    ambient-spawns: 400
+    water-spawns: 40
+    water-ambient-spawns: 20
+    water-underground-creature-spawns: 20
+    ambient-spawns: 80
 ```
 
 This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`. Setting this higher also allows your server to better cope with areas where mob spawning is disabled.
@@ -221,11 +209,6 @@ This is distance in blocks from which entities will be visible. They just won't 
 
 This allows you to control whether villagers should be ticked outside of the activation range. This will make villagers proceed as normal and ignore the activation range. Disabling this will help performance, but might be confusing for players in certain situations. This may cause issues with iron farms and trade restocking.
 
-#### nerf-spawner-mobs
-
-`Good starting value: true`
-
-You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper.yml].
 
 ### [paper.yml]
 
@@ -298,26 +281,6 @@ In most cases you can safely set this to `false`. If you're using armor stands o
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
-#### tick-rates
-
-```
-Good starting values:
-
-      sensor:
-        villager:
-          secondarypoisensor: 80
-          nearestbedsensor: 80
-          villagerbabiessensor: 40
-          playersensor: 40
-          nearestlivingentitysensor: 40
-      behavior:
-        villager:
-          validatenearbypoi: 60
-          acquirepoi: 120
-```
-
-This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
-
 ### [pufferfish.yml]
 
 #### max-loads-per-projectile
@@ -337,26 +300,6 @@ This option defines the slowest amount entities farthest from players will be ti
 `Good starting value: 7`
 
 Controls the gradient in which mobs are ticked. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
-
-### [purpur.yml]
-
-#### aggressive-towards-villager-when-lagging
-
-`Good starting value: false`
-
-Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [purpur.yml].
-
-#### entities-can-use-portals
-
-`Good starting value: false`
-
-This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread. This has the side effect of entities not being able to go through portals.
-
-#### villager.brain-ticks
-
-`Good starting value: 2`
-
-This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
 
 ---
 
@@ -449,12 +392,6 @@ This option lets you configure how often spawners should be ticked. Higher value
 
 Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
 
-#### enable-treasure-maps
-
-`Good starting value: false`
-
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
-
 #### treasure-maps-return-already-discovered
 
 `Good starting value: true`
@@ -469,7 +406,7 @@ Time in ticks between the server trying to spread grass or mycelium. This will m
 
 #### container-update-tick-rate
 
-`Good starting value: 1`
+`Good starting value: 2`
 
 Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
 
@@ -484,20 +421,6 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 `Good starting value: 20`
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
-
-### [purpur.yml]
-
-#### disable-treasure-searching
-
-`Good starting value: true`
-
-Prevents dolphins from performing structure search similar to treasure maps
-
-#### teleport-if-outside-border
-
-`Good starting value: true`
-
-Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
 
 ---
 
@@ -561,4 +484,3 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [pufferfish.yml]: https://github.com/pufferfish-gg/Pufferfish
-[purpur.yml]: https://purpur.pl3x.net/docs
