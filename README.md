@@ -294,7 +294,7 @@ Good starting values:
           acquirepoi: 20
 ```
 
-This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
+This decides how often specified behaviors and sensors are being fired in ticks. It is not recommended to use with DAB.
 
 
 ### [pufferfish.yml]
