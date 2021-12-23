@@ -281,6 +281,22 @@ In most cases you can safely set this to `false`. If you're using armor stands o
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
+#### tick-rates
+
+```
+Good starting values:
+      sensor:
+        villager:
+          secondarypoisensor: 40
+      behavior:
+        villager:
+          validatenearbypoi: -1
+          acquirepoi: 20
+```
+
+This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
+
+
 ### [pufferfish.yml]
 
 #### max-loads-per-projectile
