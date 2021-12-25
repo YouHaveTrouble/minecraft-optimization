@@ -4,8 +4,6 @@ Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) -
 
 Guide for version 1.18. Some things may still apply to 1.15 - 1.17.
 
-**PLEASE KEEP IN MIND THAT SOME THINGS ARE NOT YET UPDATED ON PAPER AND BEYOND**
-
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 Use the table of contents located above (next to `README.md`) to easily navigate throughout this guide.
@@ -50,20 +48,6 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
-#### simulation-distance
-
-`Good starting value: 4`
-
-Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will actually be ticked, aka. "things will happen in". This is here temporarily until Paper updates no-tick-view-distance patch.
-
-#### view-distance
-
-`Good starting value: 7`
-
-Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
-
-The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
-
 ### [purpur.yml]
 
 #### use-alternate-keepalive
@@ -79,21 +63,31 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 
 ## Chunks
 
+### [server.properties]
+
+#### simulation-distance
+
+`Good starting value: 4`
+
+Simulation distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `view-distance`. This allows to load more chunks without ticking them. This effectively allows players to see further without the same performance impact.
+
+#### view-distance
+
+`Good starting value: 7`
+
+This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low.
+
+The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
+
 ### [spigot.yml]
 
 #### view-distance
 
-`Good starting value: 4`
+`Good starting value: default`
 
-View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [spigot.yml], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks without ticking them. This effectively allows players to see further without the same performance impacts.
+This value overwrites server.properties one if not set to default. You should keep it default to have both simulation and view distance in one place for easier managemnent.
 
 ### [paper.yml]
-
-#### no-tick-view-distance
-
-`Good starting value: 7`
-
-This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `view-distance` and still let players see further. It's important to know that while the chunks beyond actual `view-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. View distance will be matched to client client's render distance setting if it's lower than this value.
 
 #### delay-chunk-unloads-by
 
@@ -111,7 +105,7 @@ Lets you slow down incremental world saving by spreading the task over time even
 
 `Good starting value: true`
 
-When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your no-tick-view-distance is.
+When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
 
 #### entity-per-chunk-save-limit
 
