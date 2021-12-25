@@ -4,6 +4,8 @@ Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) -
 
 Guide for version 1.18. Some things may still apply to 1.15 - 1.17.
 
+**PLEASE KEEP IN MIND THAT SOME THINGS ARE NOT YET UPDATED ON PAPER AND BEYOND**
+
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 Use the table of contents located above (next to `README.md`) to easily navigate throughout this guide.
@@ -48,6 +50,20 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
+#### simulation-distance
+
+`Good starting value: 4`
+
+Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will actually be ticked, aka. "things will happen in". This is here temporarily until Paper updates no-tick-view-distance patch.
+
+#### view-distance
+
+`Good starting value: 7`
+
+Currently Paper has not updated no-tick-view-distance patch, but Mojang has given us very similiar option. This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low. This is here temporarily until Paper updates no-tick-view-distance patch.
+
+The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
+
 ### [purpur.yml]
 
 #### use-alternate-keepalive
@@ -63,29 +79,21 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 
 ## Chunks
 
-### [server.properties]
-
-#### simulation-distance
-
-`Good starting value: 4`
-
-This is the distance in chunks that will actually be ticked, aka. "things will happen in" around players. You can make the server send chunks further than that with `view-distance`. Keep in mind that you can only set this to lower than 5 on paper or its forks.
-
-#### view-distance
-
-`Good starting value: 8`
-
-This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `simulation-distance` and still let players see further. It's important to know that while the chunks beyond actual `simulation-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. View distance will be matched to client client's render distance setting if it's lower than this value.
-
 ### [spigot.yml]
 
 #### view-distance
 
-`Good starting value: default`
+`Good starting value: 4`
 
-This option overwrites the one with the same name in server.properties. Set it to `default` to use the value from server.properties.
+View-distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. You should set this value in [spigot.yml], as it overwrites the one from [`server.properties`] and can be set per-world. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `no-tick-view-distance`. No-tick allows players to load more chunks without ticking them. This effectively allows players to see further without the same performance impacts.
 
 ### [paper.yml]
+
+#### no-tick-view-distance
+
+`Good starting value: 7`
+
+This option allows you to set the maximum distance in chunks that the players will see. This enables you to have lower `view-distance` and still let players see further. It's important to know that while the chunks beyond actual `view-distance` won't tick, they will still load from your storage, so don't go overboard. `10` is basically maximum of what you should set this to. View distance will be matched to client client's render distance setting if it's lower than this value.
 
 #### delay-chunk-unloads-by
 
@@ -103,7 +111,7 @@ Lets you slow down incremental world saving by spreading the task over time even
 
 `Good starting value: true`
 
-When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
+When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your no-tick-view-distance is.
 
 #### entity-per-chunk-save-limit
 
@@ -132,12 +140,6 @@ Good starting values:
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
-#### seed-based-feature-search-loads-chunks
-
-`Good starting value: true`
-
-While setting this to `false` will help performance when your `treasure-maps-return-already-discovered` is on `false`, it can result in unexpected behavior, like structures not actually being in the spot marked on the map sometimes. Toggle it if you don't see it as an issue.
-
 ---
 
 ## Mobs
@@ -157,14 +159,14 @@ Good starting values:
     ambient: 1
 ```
 
-The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using Paper, you can set mob limits per world in [`paper.yml`].
+The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using Paper, you can set mob limits per world in [paper.yml].
 
 #### ticks-per
 
 ```
 Good starting values:
 
-    monster-spawn: 10
+    monster-spawns: 10
     animal-spawns: 400
     water-spawns: 400
     water-ambient-spawns: 400
@@ -231,8 +233,30 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 ```
 Good starting values:
 
-      soft: 30
-      hard: 56
+      monster:
+        soft: 30
+        hard: 56
+      creature:
+        soft: 30
+        hard: 56
+      ambient:
+        soft: 30
+        hard: 56
+      axolotls:
+        soft: 30
+        hard: 56
+      underground_water_creature:
+        soft: 30
+        hard: 56
+      water_creature:
+        soft: 30
+        hard: 56
+      water_ambient:
+        soft: 30
+        hard: 56
+      misc:
+        soft: 30
+        hard: 56
 ```
 
 Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper.yml]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(view-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
@@ -295,12 +319,6 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 ### [purpur.yml]
 
-#### dont-send-useless-entity-packets
-
-`Good starting value: true`
-
-Enabling this option will save you bandwidth by preventing the server from sending empty position change packets (by default the server sends this packet for each entity even if the entity hasn't moved). May cause some issues with plugins that use client-side entities.
-
 #### aggressive-towards-villager-when-lagging
 
 `Good starting value: false`
@@ -318,12 +336,6 @@ This option can disable portal usage of all entities besides the player. This pr
 `Good starting value: 2`
 
 This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
-
-#### villager.lobotomize
-
-`Good starting value: true`
-
-Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
 ---
 
@@ -493,7 +505,7 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla Minecraft and Minecraft server software in version 1.17 requires Java 16 or higher](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla Minecraft and Minecraft server software in version 1.18 requires Java 17 or higher](https://paper.readthedocs.io/en/latest/java-update/index.html). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
 
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
