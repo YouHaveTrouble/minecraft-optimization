@@ -18,17 +18,7 @@ Your choice of server software can make a huge difference in performance and API
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Pufferfish](https://github.com/pufferfish-gg/Pufferfish) - Paper fork that aims to further improve server performance.
-* [Purpur](https://github.com/pl3xgaming/Purpur) - Paper fork focused on features and the freedom of customization.
-
-You should stay away from:
-* Yatopia - "The combined power of Paper forks for maximum instability and unmaintainablity!" - [KennyTV's list of shame](https://github.com/KennyTV/list-of-shame). Nothing more to be said. (Moreover, the project has been discontinued.)
-* Sugarcane - Yatopia 2.0.
-* Mohist - "Mohist is programmed to be malicious, game-breaking, and very unstable" - [Reasons why you shouldn't use it](https://essentialsx.net/do-not-use-mohist.html)
-* Any paid server JAR that claims async anything - 99.99% chance of being a scam.
-* Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
-* Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
-* Many forks further downstream from Pufferfish or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
+* [Pufferfish](https://github.com/pufferfish-gg/Pufferfish) - Paper fork that aims to further improve server performance. Most recommended.
 
 ## Map pregen
 Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared CPU/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin. Keep in mind that with Paper and above your tps will not be affected by chunk loading, but the speed of loading chunks can significantly slow down when your server's cpu is overloaded.
@@ -146,7 +136,7 @@ With the help of this entry you can set limits to how many entities of specified
 ```
 Good starting values:
 
-    monsters: 20
+    monsters: 8
     animals: 5
     water-animals: 2
     water-ambient: 2
@@ -163,10 +153,10 @@ Good starting values:
 
     monster-spawns: 10
     animal-spawns: 400
-    water-spawns: 400
-    water-ambient-spawns: 400
-    water-underground-creature-spawns: 400
-    ambient-spawns: 400
+    water-spawns: 40
+    water-ambient-spawns: 20
+    water-underground-creature-spawns: 40
+    ambient-spawns: 80
 ```
 
 This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`. Setting this higher also allows your server to better cope with areas where mob spawning is disabled.
@@ -215,11 +205,6 @@ This is distance in blocks from which entities will be visible. They just won't 
 
 This allows you to control whether villagers should be ticked outside of the activation range. This will make villagers proceed as normal and ignore the activation range. Disabling this will help performance, but might be confusing for players in certain situations. This may cause issues with iron farms and trade restocking.
 
-#### nerf-spawner-mobs
-
-`Good starting value: true`
-
-You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper.yml].
 
 ### [paper.yml]
 
@@ -296,21 +281,17 @@ Here you can disable armor stand collisions. This will help if you have a lot of
 
 ```
 Good starting values:
-
       sensor:
         villager:
-          secondarypoisensor: 80
-          nearestbedsensor: 80
-          villagerbabiessensor: 40
-          playersensor: 40
-          nearestlivingentitysensor: 40
+          secondarypoisensor: 40
       behavior:
         villager:
-          validatenearbypoi: 60
-          acquirepoi: 120
+          validatenearbypoi: -1
+          acquirepoi: 20
 ```
 
-This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
+This decides how often specified behaviors and sensors are being fired in ticks. It is not recommended to use with DAB.
+
 
 ### [pufferfish.yml]
 
@@ -331,26 +312,6 @@ This option defines the slowest amount entities farthest from players will be ti
 `Good starting value: 7`
 
 Controls the gradient in which mobs are ticked. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of this calculation. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms.
-
-### [purpur.yml]
-
-#### aggressive-towards-villager-when-lagging
-
-`Good starting value: false`
-
-Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [purpur.yml].
-
-#### entities-can-use-portals
-
-`Good starting value: false`
-
-This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread. This has the side effect of entities not being able to go through portals.
-
-#### villager.brain-ticks
-
-`Good starting value: 2`
-
-This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
 
 ---
 
@@ -443,12 +404,6 @@ This option lets you configure how often spawners should be ticked. Higher value
 
 Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
 
-#### enable-treasure-maps
-
-`Good starting value: false`
-
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
-
 #### treasure-maps-return-already-discovered
 
 `Good starting value: true`
@@ -463,7 +418,7 @@ Time in ticks between the server trying to spread grass or mycelium. This will m
 
 #### container-update-tick-rate
 
-`Good starting value: 1`
+`Good starting value: 2`
 
 Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
 
@@ -478,20 +433,6 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 `Good starting value: 20`
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
-
-### [purpur.yml]
-
-#### disable-treasure-searching
-
-`Good starting value: true`
-
-Prevents dolphins from performing structure search similar to treasure maps
-
-#### teleport-if-outside-border
-
-`Good starting value: true`
-
-Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
 
 ---
 
@@ -555,4 +496,3 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
 [pufferfish.yml]: https://github.com/pufferfish-gg/Pufferfish
-[purpur.yml]: https://purpur.pl3x.net/docs
