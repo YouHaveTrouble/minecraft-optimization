@@ -39,17 +39,6 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
-### [purpur.yml]
-
-#### use-alternate-keepalive
-
-`Good starting value: true`
-
-You can enable Purpur's alternate keepalive system so players with bad connection don't get timed out as often. Has known incompatibility with TCPShield.
-
-> Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
-~ https://purpur.pl3x.net/docs/Configuration/#use-alternate-keepalive
-
 ---
 
 ## Chunks
