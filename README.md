@@ -352,6 +352,12 @@ This option can disable portal usage of all entities besides the player. This pr
 
 This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
 
+#### villager.lobotomize
+
+`Good starting value: true`
+
+Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
+
 ---
 
 ## Misc
