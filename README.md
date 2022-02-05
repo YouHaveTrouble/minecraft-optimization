@@ -407,6 +407,12 @@ When enabled, the redstone system is replaced by a faster and alternative versio
 
 `InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
 
+#### ignore-occluding-blocks
+
+`Good starting value: true`
+
+Determines if hoppers will ignore containers inside full blocks, for example hopper minecart inside sand or gravel block. Keeping this enabled will break some contraptions depending on that behavior.
+
 #### mob-spawner-tick-rate
 
 `Good starting value: 2`
