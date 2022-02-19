@@ -325,7 +325,7 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 `Good starting value: true`
 
-DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [acitvation-dist-mod](#activation-dist-mod).
+DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [activation-dist-mod](#activation-dist-mod).
 
 #### max-tick-freq
 
