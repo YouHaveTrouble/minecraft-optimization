@@ -156,6 +156,7 @@ Good starting values:
     water-animals: 2
     water-ambient: 2
     water-underground-creature: 3
+    axolotls: 3
     ambient: 1
 ```
 
@@ -171,6 +172,7 @@ Good starting values:
     water-spawns: 400
     water-ambient-spawns: 400
     water-underground-creature-spawns: 400
+    axolotl-spawns: 400
     ambient-spawns: 400
 ```
 
