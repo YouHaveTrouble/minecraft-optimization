@@ -367,6 +367,8 @@ This option allows you to set how often (in ticks) villager brains (work and poi
 
 Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
+**This should only be enabled if villagers are causing lag! Otherwise, the pathfinding checks may decrease performance.**
+
 ---
 
 ## Misc
