@@ -83,7 +83,7 @@ The total view distance will be equal to the greatest value between `simulation-
 
 `Good starting value: default`
 
-This value overwrites server.properties one if not set to default. You should keep it default to have both simulation and view distance in one place for easier managemnent.
+This value overwrites server.properties one if not set to default. You should keep it default to have both simulation and view distance in one place for easier management.
 
 ### [paper.yml]
 
