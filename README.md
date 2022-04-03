@@ -317,9 +317,9 @@ Good starting values:
           acquirepoi: 120
 ```
 
-This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
+> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab) is enabled!
 
-**It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab) is enabled!**
+This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
 ### [pufferfish.yml]
 
@@ -365,9 +365,9 @@ This option allows you to set how often (in ticks) villager brains (work and poi
 
 `Good starting value: true`
 
-Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
+> This should only be enabled if villagers are causing lag! Otherwise, the pathfinding checks may decrease performance.
 
-**This should only be enabled if villagers are causing lag! Otherwise, the pathfinding checks may decrease performance.**
+Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
 ---
 
