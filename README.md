@@ -526,7 +526,7 @@ Allows you to teleport the player to the world spawn if they happen to be outsid
 
 `Good starting value: true`
 
-Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e). Enabling this will actually decrease performance, however it is much more efficient than any anti-xray plugin. In most cases the performance impact will be negligible.
+Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://docs.papermc.io/paper/anti-xray). Enabling this will actually decrease performance, however it is much more efficient than any anti-xray plugin. In most cases the performance impact will be negligible.
 
 #### remove-corrupt-tile-entities
 
@@ -543,9 +543,9 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla Minecraft and Minecraft server software in version 1.18 requires Java 17 or higher](https://paper.readthedocs.io/en/latest/java-update/index.html). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla Minecraft and Minecraft server software in version 1.18 requires Java 17 or higher](https://docs.papermc.io/java-install-update). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
 
-Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://mcflags.emc.gs/) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
+Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
 # "Too good to be true" plugins
 
@@ -573,9 +573,9 @@ To get timings of your server you just need to execute the `/timings paste` comm
 
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
-[server.properties]: https://minecraft.fandom.com/Server.properties
-[bukkit.yml]: https://bukkit.gamepedia.com/Bukkit.yml
+[server.properties]: https://minecraft.fandom.com/wiki/Server.properties
+[bukkit.yml]: https://bukkit.fandom.com/wiki/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
-[paper.yml]:  https://paper.readthedocs.io/en/latest/server/configuration.html
-[purpur.yml]: https://purpurmc.org/docs/
-[pufferfish.yml]: https://github.com/pufferfish-gg/Pufferfish
+[paper.yml]:  https://docs.papermc.io/paper/reference/paper-global-configuration
+[purpur.yml]: https://purpurmc.org/docs/Configuration/
+[pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
