@@ -528,12 +528,6 @@ Allows you to teleport the player to the world spawn if they happen to be outsid
 
 Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://docs.papermc.io/paper/anti-xray). Enabling this will actually decrease performance, however it is much more efficient than any anti-xray plugin. In most cases the performance impact will be negligible.
 
-#### remove-corrupt-tile-entities
-
-`Good starting value: true`
-
-Change this to `true` if you're getting your console spammed with errors regarding tile entities. This will remove any tile entities that cause the error instead of ignoring it. If you get frequent warnings about tile entities, investigate why they are breaking. This is not a solution to the root issue.
-
 #### nether-ceiling-void-damage-height
 
 `Good starting value: 127`
