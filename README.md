@@ -407,31 +407,31 @@ Good starting values:
 
       enabled: true
       items:
-          COBBLESTONE: 300
-          NETHERRACK: 300
-          SAND: 300
-          RED_SAND: 300
-          GRAVEL: 300
-          DIRT: 300
-          GRASS: 300
-          PUMPKIN: 300
-          MELON_SLICE: 300
-          KELP: 300
-          BAMBOO: 300
-          SUGAR_CANE: 300
-          TWISTING_VINES: 300
-          WEEPING_VINES: 300
-          OAK_LEAVES: 300
-          SPRUCE_LEAVES: 300
-          BIRCH_LEAVES: 300
-          JUNGLE_LEAVES: 300
-          ACACIA_LEAVES: 300
-          DARK_OAK_LEAVES: 300
-          CACTUS: 300
-          DIORITE: 300
-          GRANITE: 300
-          ANDESITE: 300
-          SCAFFOLDING: 600
+          cobblestone: 300
+          netherrack: 300
+          sand: 300
+          red_sand: 300
+          gravel: 300
+          dirt: 300
+          grass: 300
+          pumpkin: 300
+          melon_slice: 300
+          kelp: 300
+          bamboo: 300
+          sugar_cane: 300
+          twisting_vines: 300
+          weeping_vines: 300
+          oak_leaves: 300
+          spruce_leaves: 300
+          birch_leaves: 300
+          jungle_leaves: 300
+          acacia_leaves: 300
+          dark_oak_leaves: 300
+          cactus: 300
+          diorite: 300
+          granite: 300
+          andesite: 300
+          scaffolding: 600
 ```
 
 This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
