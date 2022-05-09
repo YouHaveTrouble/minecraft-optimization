@@ -436,9 +436,9 @@ Good starting values:
 
 This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
 
-#### use-faster-eigencraft-redstone
+#### redstone-implementation
 
-`Good starting value: true`
+`Good starting value: alternate-current`
 
 When enabled, the redstone system is replaced by a faster and alternative version that reduces redundant block updates, lowering the amount of work your server has to do. Enabling this can significantly improve performance without introducing gameplay inconsistencies. Enabling this will even fix some redstone inconsistencies from craftbukkit.
 
