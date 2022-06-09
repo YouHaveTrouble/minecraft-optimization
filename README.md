@@ -476,7 +476,12 @@ Generating treasure maps is extremely expensive and can hang a server if the str
 
 #### treasure-maps-return-already-discovered
 
-`Good starting value: true`
+```
+Good starting values:
+
+      villager-trade: true
+      loot-tables: true
+```
 
 Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps.
 
