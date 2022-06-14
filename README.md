@@ -1,15 +1,15 @@
 # Minecraft server optimization guide
 
-Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is force disabled on Paper and its forks, but on server implementations before that you need to switch this off manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
+Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is forcibly set to false on Paper and its forks and, but on server implementations before that you need to switch this to false manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
-Guide for version 1.18. Some things may still apply to 1.15 - 1.17.
+Guide for version 1.19. Some things may still apply to 1.15 - 1.18.
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
 Use the table of contents located above (next to `README.md`) to easily navigate throughout this guide.
 
 # Intro
-There will never be a guide that will give you perfect results. Each server has their own needs and limits on how much you can or are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs is what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within this guide, you're free to open an issue or set up a pull request.
+There will never be a guide that will give you perfect results. Each server has their own needs and limits on how much you can or are willing to sacrifice. Tinkering around with the options to fine tune them to your servers needs is what it's all about. This guide only aims to help you understand what options have impact on performance and what exactly they change. If you think you found inaccurate information within this guide, you're free to open an issue or set up a pull request to correct it.
 
 # Preparations
 
@@ -28,7 +28,9 @@ You should stay away from:
 * Many forks further downstream from Pufferfish or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
 
 ## Map pregen
-Map pregeneration is one of the most important steps in improving a low-budget server. This helps out servers that are hosted on a shared CPU/single core node the most, since they can't fully utilize async chunk loading. You can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to pregenerate the world. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin. Keep in mind that with Paper and above your tps will not be affected by chunk loading, but the speed of loading chunks can significantly slow down when your server's cpu is overloaded.
+Map pregeneration, thanks to various optimizations to chunk generation added over the years is now only useful on servers with terrible, single threaded or limited CPUs. In 99% of cases you do not need to do it.
+
+If, for any reason after reading the first paragraph of this section you still want to pregen the world, you can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to do it. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin. Keep in mind that with Paper and above your tps will not be affected by chunk loading, but the speed of loading chunks can significantly slow down when your server's cpu is overloaded.
 
 It's key to remember that the overworld, nether and the end have separate world borders that need to be set up for each world. The nether dimension is 8x smaller than the overworld (if not modified with a datapack), so if you set the size wrong your players might end up outside of the world border!
 
@@ -73,7 +75,7 @@ Simulation distance is distance in chunks around the player that the server will
 
 `Good starting value: 7`
 
-This is the distance in chunks that will be sent to players, similiar to no-tick-view-distance from paper. 1.18 client now respects server side view-distance, which causes ugly fog to appear it this is set low.
+This is the distance in chunks that will be sent to players, similar to no-tick-view-distance from paper.
 
 The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
 
@@ -83,9 +85,9 @@ The total view distance will be equal to the greatest value between `simulation-
 
 `Good starting value: default`
 
-This value overwrites server.properties one if not set to default. You should keep it default to have both simulation and view distance in one place for easier management.
+This value overwrites server.properties one if not set to `default`. You should keep it default to have both simulation and view distance in one place for easier management.
 
-### [paper.yml]
+### [paper-world configuration]
 
 #### delay-chunk-unloads-by
 
@@ -160,7 +162,7 @@ Good starting values:
     ambient: 1
 ```
 
-The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using Paper, you can set mob limits per world in [paper.yml].
+The math of limiting mobs is `[playercount] * [limit]`, where "playercount" is current amount of players on the server. Logically, the smaller the numbers are, the less mobs you're gonna see. `per-player-mob-spawn` applies an additional limit to this, ensuring mobs are equally distributed between players. Reducing this is a double-edged sword; yes, your server has less work to do, but in some gamemodes natural-spawning mobs are a big part of a gameplay. You can go as low as 20 or less if you adjust `mob-spawn-range` properly. Setting `mob-spawn-range` lower will make it feel as if there are more mobs around each player. If you are using Paper, you can set mob limits per world in [paper-world configuration].
 
 #### ticks-per
 
@@ -226,9 +228,9 @@ This allows you to control whether villagers should be ticked outside of the act
 
 `Good starting value: true`
 
-You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper.yml].
+You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper-world configuration].
 
-### [paper.yml]
+### [paper-world configuration]
 
 #### despawn-ranges
 
@@ -261,7 +263,7 @@ Good starting values:
         hard: 56
 ```
 
-Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual simulation-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper.yml]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(simulation-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
+Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual simulation-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper-world configuration]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(simulation-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
 
 #### per-player-mob-spawns
 
@@ -398,7 +400,7 @@ Time in ticks that hoppers will wait to move an item. Increasing this will help 
 
 Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and item sorting systems relying on water streams.
 
-### [paper.yml]
+### [paper-world configuration]
 
 #### alt-item-despawn-rate
 
@@ -472,13 +474,17 @@ Setting this to `true` replaces the vanilla explosion algorithm with a faster on
 
 `Good starting value: false`
 
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is outside of your pregenerated world. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
+Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in not yet generated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
 #### treasure-maps-return-already-discovered
 
-`Good starting value: true`
+```
+Good starting values:
+    villager-trade: true
+    loot-tables: true
+```
 
-Default value of this option forces the newly generated maps to look for unexplored structure, which are usually outside of your pregenerated terrain. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps.
+Default value of this option forces the newly generated maps to look for unexplored structure, which are usually in not yet generated chunks. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps.
 
 #### grass-spread-tick-rate
 
@@ -522,7 +528,7 @@ Allows you to teleport the player to the world spawn if they happen to be outsid
 
 ## Helpers
 
-### [paper.yml]
+### [paper-world configuration]
 
 #### anti-xray
 
@@ -572,6 +578,6 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [server.properties]: https://minecraft.fandom.com/wiki/Server.properties
 [bukkit.yml]: https://bukkit.fandom.com/wiki/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
-[paper.yml]:  https://docs.papermc.io/paper/reference/paper-global-configuration
+[paper-world configuration]:  https://docs.papermc.io/paper/per-world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
 [pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
