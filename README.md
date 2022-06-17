@@ -1,6 +1,6 @@
 # Minecraft server optimization guide
 
-Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is forcibly set to false on Paper and its forks and, but on server implementations before that you need to switch this to false manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
+Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is forcibly set to false on Paper and its forks, but on other server implementations you need to switch this to false manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
 Guide for version 1.19. Some things may still apply to 1.15 - 1.18.
 
@@ -28,9 +28,9 @@ You should stay away from:
 * Many forks further downstream from Pufferfish or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
 
 ## Map pregen
-Map pregeneration, thanks to various optimizations to chunk generation added over the years is now only useful on servers with terrible, single threaded or limited CPUs. In 99% of cases you do not need to do it.
+Map pregeneration, thanks to various optimizations to chunk generation added over the years is now only useful on servers with terrible, single threaded, or limited CPUs. Though, pregeneration is commonly used to generate chunks for world-map plugins such as Pl3xMap or Dynmap. <!-- TODO: Link to these once Pl3xMap v2 is ready --->
 
-If, for any reason after reading the first paragraph of this section you still want to pregen the world, you can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to do it. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin. Keep in mind that with Paper and above your tps will not be affected by chunk loading, but the speed of loading chunks can significantly slow down when your server's cpu is overloaded.
+If you still want to pregen the world, you can use a plugin such as [Chunky](https://github.com/pop4959/Chunky) to do it. Make sure to set up a world border so your players don't generate new chunks! Note that pregenning can sometimes take hours depending on the radius you set in the pregen plugin. Keep in mind that with Paper and above your tps will not be affected by chunk loading, but the speed of loading chunks can significantly slow down when your server's cpu is overloaded.
 
 It's key to remember that the overworld, nether and the end have separate world borders that need to be set up for each world. The nether dimension is 8x smaller than the overworld (if not modified with a datapack), so if you set the size wrong your players might end up outside of the world border!
 
@@ -474,7 +474,7 @@ Setting this to `true` replaces the vanilla explosion algorithm with a faster on
 
 `Good starting value: false`
 
-Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in not yet generated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
+Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in an ungenerated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
 #### treasure-maps-return-already-discovered
 
