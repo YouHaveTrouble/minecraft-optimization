@@ -345,7 +345,7 @@ Controls the gradient in which mobs are ticked. Decreasing this will activate DA
 
 ### [purpur.yml]
 
-#### aggressive-towards-villager-when-lagging
+#### zombie.aggressive-towards-villager-when-lagging
 
 `Good starting value: false`
 
