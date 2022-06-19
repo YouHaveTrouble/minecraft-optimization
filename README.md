@@ -579,6 +579,7 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [server.properties]: https://minecraft.fandom.com/wiki/Server.properties
 [bukkit.yml]: https://bukkit.fandom.com/wiki/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
-[paper-world configuration]:  https://docs.papermc.io/paper/per-world-configuration
+[paper-global configuration]: https://docs.papermc.io/paper/reference/global-configuration
+[paper-world configuration]: https://docs.papermc.io/paper/reference/world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
 [pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
