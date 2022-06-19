@@ -481,7 +481,7 @@ Generating treasure maps is extremely expensive and can hang a server if the str
 
 ```
 Good starting values:
-      loot-tables: 'true'
+      loot-tables: true
       villager-trade: true
 ```
 
