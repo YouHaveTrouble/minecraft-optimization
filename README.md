@@ -91,7 +91,7 @@ This value overwrites server.properties one if not set to `default`. You should 
 
 #### delay-chunk-unloads-by
 
-`Good starting value: 10`
+`Good starting value: 10s`
 
 This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
 
@@ -112,24 +112,24 @@ When enabled, prevents players from moving into unloaded chunks and causing sync
 ```
 Good starting values:
 
-      experience_orb: 16
-      arrow: 16
-      dragon_fireball: 3
-      egg: 8
-      ender_pearl: 8
-      eye_of_ender: 8
-      fireball: 8
-      small_fireball: 8
-      firework_rocket: 8
-      potion: 8
-      llama_spit: 3
-      shulker_bullet: 8
-      snowball: 8
-      spectral_arrow: 16
-      experience_bottle: 3
-      trident: 16
-      wither_skull: 4
-      area_effect_cloud: 8
+    area_effect_cloud: 8
+    arrow: 16
+    dragon_fireball: 3
+    egg: 8
+    ender_pearl: 8
+    experience_bottle: 3
+    experience_orb: 16
+    eye_of_ender: 8
+    fireball: 8
+    firework_rocket: 8
+    llama_spit: 3
+    potion: 8
+    shulker_bullet: 8
+    small_fireball: 8
+    snowball: 8
+    spectral_arrow: 16
+    trident: 16
+    wither_skull: 4
 ```
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
@@ -237,30 +237,30 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 ```
 Good starting values:
 
-      monster:
-        soft: 30
-        hard: 56
-      creature:
-        soft: 30
-        hard: 56
       ambient:
-        soft: 30
         hard: 56
+        soft: 30
       axolotls:
-        soft: 30
         hard: 56
-      underground_water_creature:
         soft: 30
+      creature:
         hard: 56
-      water_creature:
         soft: 30
-        hard: 56
-      water_ambient:
-        soft: 30
-        hard: 56
       misc:
-        soft: 30
         hard: 56
+        soft: 30
+      monster:
+        hard: 56
+        soft: 30
+      underground_water_creature:
+        hard: 56
+        soft: 30
+      water_ambient:
+        hard: 56
+        soft: 30
+      water_creature:
+        hard: 56
+        soft: 30
 ```
 
 Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual simulation-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper-world configuration]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(simulation-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
@@ -289,13 +289,13 @@ Disabling this will result in less pathfinding being done, increasing performanc
 
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
 
-#### armor-stands-tick
+#### armor-stands.tick
 
 `Good starting value: false`
 
 In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it. This will prevent armor stands from being pushed by water or being affected by gravity.
 
-#### armor-stands-do-collision-entity-lookups
+#### armor-stands.do-collision-entity-lookups
 
 `Good starting value: false`
 
@@ -306,17 +306,17 @@ Here you can disable armor stand collisions. This will help if you have a lot of
 ```
 Good starting values:
 
-      sensor:
-        villager:
-          secondarypoisensor: 80
-          nearestbedsensor: 80
-          villagerbabiessensor: 40
-          playersensor: 40
-          nearestlivingentitysensor: 40
-      behavior:
-        villager:
-          validatenearbypoi: 60
-          acquirepoi: 120
+  behavior:
+    villager:
+      validatenearbypoi: 60
+      acquirepoi: 120
+  sensor:
+    villager:
+      secondarypoisensor: 80
+      nearestbedsensor: 80
+      villagerbabiessensor: 40
+      playersensor: 40
+      nearestlivingentitysensor: 40
 ```
 
 > It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab) is enabled!
@@ -325,7 +325,7 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 ### [pufferfish.yml]
 
-#### dab
+#### dab.enabled
 
 `Good starting value: true`
 
@@ -345,7 +345,7 @@ Controls the gradient in which mobs are ticked. Decreasing this will activate DA
 
 ### [purpur.yml]
 
-#### aggressive-towards-villager-when-lagging
+#### zombie.aggressive-towards-villager-when-lagging
 
 `Good starting value: false`
 
@@ -409,56 +409,57 @@ Good starting values:
 
       enabled: true
       items:
-          cobblestone: 300
-          netherrack: 300
-          sand: 300
-          red_sand: 300
-          gravel: 300
-          dirt: 300
-          grass: 300
-          pumpkin: 300
-          melon_slice: 300
-          kelp: 300
-          bamboo: 300
-          sugar_cane: 300
-          twisting_vines: 300
-          weeping_vines: 300
-          oak_leaves: 300
-          spruce_leaves: 300
-          birch_leaves: 300
-          jungle_leaves: 300
-          acacia_leaves: 300
-          dark_oak_leaves: 300
-          cactus: 300
-          diorite: 300
-          granite: 300
-          andesite: 300
-          scaffolding: 600
+        cobblestone: 300
+        netherrack: 300
+        sand: 300
+        red_sand: 300
+        gravel: 300
+        dirt: 300
+        grass: 300
+        pumpkin: 300
+        melon_slice: 300
+        kelp: 300
+        bamboo: 300
+        sugar_cane: 300
+        twisting_vines: 300
+        weeping_vines: 300
+        oak_leaves: 300
+        spruce_leaves: 300
+        birch_leaves: 300
+        jungle_leaves: 300
+        acacia_leaves: 300
+        dark_oak_leaves: 300
+        mangrove_leaves: 300
+        cactus: 300
+        diorite: 300
+        granite: 300
+        andesite: 300
+        scaffolding: 600
 ```
 
 This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
 
 #### redstone-implementation
 
-`Good starting value: alternate-current`
+`Good starting value: ALTERNATE_CURRENT`
 
 Replaces the redstone system with faster and alternative versions that reduce redundant block updates, lowering the amount of logic your server has to calculate. Using a non-vanilla implementation may introduce minor inconsistencies with very technical redstone, but the performance gains far outweigh the possible niche issues. A non-vanilla implementation option may additionally fix other redstone inconsistencies caused by CraftBukkit.
 
 The `alternate-current` implementation is based off of the [Alternate Current](https://modrinth.com/mod/alternate-current) mod. More information on this algorithm can be found on their resource page.
 
-#### disable-move-event
+#### hopper.disable-move-event
 
 `Good starting value: false`
 
 `InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
 
-#### ignore-occluding-blocks
+#### hopper.ignore-occluding-blocks
 
 `Good starting value: true`
 
 Determines if hoppers will ignore containers inside full blocks, for example hopper minecart inside sand or gravel block. Keeping this enabled will break some contraptions depending on that behavior.
 
-#### mob-spawner-tick-rate
+#### tick-rates.mob-spawner
 
 `Good starting value: 2`
 
@@ -470,29 +471,29 @@ This option lets you configure how often spawners should be ticked. Higher value
 
 Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
 
-#### enable-treasure-maps
+#### treasure-maps.enabled
 
 `Good starting value: false`
 
 Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in an ungenerated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
-#### treasure-maps-return-already-discovered
+#### treasure-maps.find-already-discovered
 
 ```
 Good starting values:
-    villager-trade: true
-    loot-tables: true
+      loot-tables: true
+      villager-trade: true
 ```
 
 Default value of this option forces the newly generated maps to look for unexplored structure, which are usually in not yet generated chunks. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps. `villager-trade` is for maps traded by villagers and loot-tables refers to anything that generates loot dynamically like treasure chests, dungeon chests, etc.
 
-#### grass-spread-tick-rate
+#### tick-rates.grass-spread
 
 `Good starting value: 4`
 
 Time in ticks between the server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without the decreased spread rate being noticeable.
 
-#### container-update-tick-rate
+#### tick-rates.container-update
 
 `Good starting value: 1`
 
@@ -512,7 +513,7 @@ Time in ticks after which arrows shot by players in creative mode should disappe
 
 ### [purpur.yml]
 
-#### disable-treasure-searching
+#### dolphin.disable-treasure-searching
 
 `Good starting value: true`
 
@@ -545,7 +546,7 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla Minecraft and Minecraft server software in version 1.18 requires Java 17 or higher](https://docs.papermc.io/java-install-update). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla Minecraft and Minecraft server software in version 1.19 requires Java 17 or higher](https://docs.papermc.io/java-install-update). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
 
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
 
@@ -578,6 +579,7 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [server.properties]: https://minecraft.fandom.com/wiki/Server.properties
 [bukkit.yml]: https://bukkit.fandom.com/wiki/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
-[paper-world configuration]:  https://docs.papermc.io/paper/per-world-configuration
+[paper-global configuration]: https://docs.papermc.io/paper/reference/global-configuration
+[paper-world configuration]: https://docs.papermc.io/paper/reference/world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
 [pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
