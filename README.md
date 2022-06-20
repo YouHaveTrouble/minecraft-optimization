@@ -319,7 +319,7 @@ Good starting values:
       nearestlivingentitysensor: 40
 ```
 
-> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab.enabled) is enabled!
+> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dabenabled) is enabled!
 
 This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
@@ -329,7 +329,7 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 `Good starting value: true`
 
-DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [dab.activation-dist-mod](#dab.activation-dist-mod).
+DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [dab.activation-dist-mod](#dabactivation-dist-mod).
 
 #### dab.max-tick-freq
 
