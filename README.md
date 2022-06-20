@@ -319,7 +319,7 @@ Good starting values:
       nearestlivingentitysensor: 40
 ```
 
-> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab) is enabled!
+> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dab.enabled) is enabled!
 
 This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
@@ -329,15 +329,15 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 `Good starting value: true`
 
-DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [activation-dist-mod](#activation-dist-mod).
+DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [dab.activation-dist-mod](#dab.activation-dist-mod).
 
-#### max-tick-freq
+#### dab.max-tick-freq
 
 `Good starting value: 20`
 
 Defines the slowest amount entities farthest from players will be ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior. If enabling DAB breaks mob farms, try decreasing this value.
 
-#### activation-dist-mod
+#### dab.activation-dist-mod
 
 `Good starting value: 7`
 
@@ -363,7 +363,7 @@ This option can disable portal usage of all entities besides the player. This pr
 
 This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
 
-#### villager.lobotomize
+#### villager.lobotomize.enabled
 
 `Good starting value: true`
 
@@ -445,7 +445,7 @@ This list lets you set alternative time (in ticks) to despawn certain types of d
 
 Replaces the redstone system with faster and alternative versions that reduce redundant block updates, lowering the amount of logic your server has to calculate. Using a non-vanilla implementation may introduce minor inconsistencies with very technical redstone, but the performance gains far outweigh the possible niche issues. A non-vanilla implementation option may additionally fix other redstone inconsistencies caused by CraftBukkit.
 
-The `alternate-current` implementation is based off of the [Alternate Current](https://modrinth.com/mod/alternate-current) mod. More information on this algorithm can be found on their resource page.
+The `ALTERNATE_CURRENT` implementation is based off of the [Alternate Current](https://modrinth.com/mod/alternate-current) mod. More information on this algorithm can be found on their resource page.
 
 #### hopper.disable-move-event
 
@@ -531,11 +531,11 @@ Allows you to teleport the player to the world spawn if they happen to be outsid
 
 ### [paper-world configuration]
 
-#### anti-xray
+#### anti-xray.enabled
 
 `Good starting value: true`
 
-Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Stonar96's recommended settings](https://docs.papermc.io/paper/anti-xray). Enabling this will actually decrease performance, however it is much more efficient than any anti-xray plugin. In most cases the performance impact will be negligible.
+Enable this to hide ores from x-rayers. For detailed configuration of this feature check out [Configuring Anti-Xray](https://docs.papermc.io/paper/anti-xray). Enabling this will actually decrease performance, however it is much more efficient than any anti-xray plugin. In most cases the performance impact will be negligible.
 
 #### nether-ceiling-void-damage-height
 
@@ -553,7 +553,7 @@ Your garbage collector can be configured to reduce lag spikes caused by big garb
 # "Too good to be true" plugins
 
 ## Plugins removing ground items
-Absolutely unnecessary since they can be replaced with [merge radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rate) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
+Absolutely unnecessary since they can be replaced with [merge-radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rate) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
 
 ## Mob stacker plugins
 It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all due to the server constantly trying to spawn more mobs. The only "acceptable" use case is for spawners on servers with a large amount of spawners.
