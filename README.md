@@ -347,13 +347,13 @@ Controls the gradient in which mobs are ticked. Decreasing this will activate DA
 
 `Good starting value: true`
 
-Enables the asynchronous entity tracker patch made by [Petal](https://github.com/Bloom-host/Petal).
+Enables the asynchronous entity tracker patch made by [`Petal`].
 
 #### enable-async-pathfinding
 
 `Good starting value: true`
 
-Enables the asynchronous pathfinding patch made by [Petal](https://github.com/Bloom-host/Petal).
+Enables the asynchronous pathfinding patch made by [`Petal`].
 
 #### enable-async-mob-spawning
 
@@ -547,7 +547,7 @@ Time in ticks after which arrows shot by players in creative mode should disappe
 
 `Good starting value: true`
 
-This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can causes additional lag.
+This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
 
 ### [purpur.yml]
 
@@ -591,9 +591,6 @@ It's recommended to use the [flags.sh](https://docs.papermc.io/paper/aikars-flag
 
 In addition, adding the beta flag `--add-modules=jdk.incubator.vector` before `-jar` in your startup flags can improve performance. This flag enables Pufferfish to use SIMD instructions on your CPU, making some maths faster. Currently, it's only used for making rendering in game plugin maps (like imageonmaps) possibly 8 times faster.
 
-t enables feature's in Pufferfish:
-It uses SIMD instructions on your CPU, making some math faster (Only used for map rendering at this moment).
-
 # "Too good to be true" plugins
 
 ## Plugins removing ground items
@@ -613,6 +610,10 @@ Paper offers a `/mspt` command that will tell you how much time the server took 
 ## spark
 [Spark](https://spark.lucko.me/) is a plugin that allows you to profile your servers CPU and memory usage. You can read on how to use it [on its wiki](https://spark.lucko.me/docs/). There's also a guide on how to find the cause of lag spikes [here](https://spark.lucko.me/docs/guides/Finding-lag-spikes).
 
+## timings
+Great way to see what might be going on when your server is lagging are timings. Timings is a tool that lets you see exactly what tasks are taking the longest. It's the most basic troubleshooting tool and if you ask for help regarding lag you will most likely be asked for your timings.
+
+To get timings of your server you just need to execute the `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
 [server.properties]: https://minecraft.fandom.com/wiki/Server.properties
@@ -622,3 +623,4 @@ Paper offers a `/mspt` command that will tell you how much time the server took 
 [paper-world configuration]: https://docs.papermc.io/paper/reference/world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
 [pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
+[Petal]: https://github.com/Bloom-host/Petal
