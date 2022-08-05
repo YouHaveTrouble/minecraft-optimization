@@ -347,13 +347,13 @@ Controls the gradient in which mobs are ticked. Decreasing this will activate DA
 
 `Good starting value: true`
 
-Enables the asynchronous entity tracker patch made by [`Petal`].
+Enables the asynchronous entity tracker patch made by [Petal].
 
 #### enable-async-pathfinding
 
 `Good starting value: true`
 
-Enables the asynchronous pathfinding patch made by [`Petal`].
+Enables the asynchronous pathfinding patch made by [Petal].
 
 #### enable-async-mob-spawning
 
