@@ -343,6 +343,36 @@ Defines the slowest amount entities farthest from players will be ticked. Increa
 
 Controls the gradient in which mobs are ticked. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms. If enabling DAB breaks mob farms, try increasing this value.
 
+#### enable-async-entity-tracker
+
+`Good starting value: true`
+
+Enables the asynchronous entity tracker patch made by [Petal].
+
+#### enable-async-pathfinding
+
+`Good starting value: true`
+
+Enables the asynchronous pathfinding patch made by [Petal].
+
+#### enable-async-mob-spawning
+
+`Good starting value: true`
+
+If asynchronous mob spawning should be enabled. For this to work, the Paper's per-player-mob-spawns setting must be enabled. This option does not actually spawn mobs asynchronous, but does offload much of the computational effort involved with spawning new mobs to a different thread. Enabling this option should not be noticeable on vanilla gameplay.
+
+#### enable-suffocation-optimization
+
+`Good starting value: true`
+
+This option optimises a suffocation check (the check to see if a mob is inside a block and if they should take suffocation damage), by rate limiting the check to the damage timeout. This optimisation should be impossible to notice unless you're an extremely technical player who's using tick-precise timing to kill an entity at exactly the right time by suffocation.
+
+#### inactive-goal-selector-throttle
+
+`Good starting value: true`
+
+Throttles the AI goal selector in entity inactive ticks, causing the inactive entities to update their goal selector every 20 ticks instead of every tick. Can improve performance by a few percent, and has minor gameplay implications.
+
 ### [purpur.yml]
 
 #### zombie.aggressive-towards-villager-when-lagging
@@ -511,6 +541,14 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
+### [pufferfish.yml]
+
+#### disable-method-profiler
+
+`Good starting value: true`
+
+This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
+
 ### [purpur.yml]
 
 #### dolphin.disable-treasure-searching
@@ -546,9 +584,12 @@ If this option is greater that `0`, players above the set y level will be damage
 ---
 
 # Java startup flags
-[Vanilla Minecraft and Minecraft server software in version 1.19 requires Java 17 or higher](https://docs.papermc.io/java-install-update). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Amazon Corretto](https://aws.amazon.com/corretto/) and [Adoptium](https://adoptium.net/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by paper and have been known to cause issues, therefore they are not currently recommended.
+[Vanilla Minecraft and Minecraft server software in version 1.19 requires Java 17 or higher](https://docs.papermc.io/java-install-update). Oracle has changed their licensing, and there is no longer a compelling reason to get your java from them. Recommended vendors are [Adoptium](https://adoptium.net/) and [Amazon Corretto](https://aws.amazon.com/corretto/). Alternative JVM implementations such as OpenJ9 or GraalVM can work, however they are not supported by Paper and have been known to cause issues, therefore they are not currently recommended.
 
-Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative jvm implementations.
+Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative JVM implementations.
+It's recommended to use the [flags.sh](https://docs.papermc.io/paper/aikars-flags) startup flags generator to get the correct startup flags for your server
+
+In addition, adding the beta flag `--add-modules=jdk.incubator.vector` before `-jar` in your startup flags can improve performance. This flag enables Pufferfish to use SIMD instructions on your CPU, making some maths faster. Currently, it's only used for making rendering in game plugin maps (like imageonmaps) possibly 8 times faster.
 
 # "Too good to be true" plugins
 
@@ -565,15 +606,14 @@ Anything that enables or disables plugins on runtime is extremely dangerous. Loa
 
 ## mspt
 Paper offers a `/mspt` command that will tell you how much time the server took to calculate recent ticks. If the first and second value you see are lower than 50, then congratulations! Your server is not lagging! If the third value is over 50 then it means there was at least 1 tick that took longer. That's completely normal and happens from time to time, so don't panic.
-
-## timings
-Great way to see what might be going on when your server is lagging are timings. Timings is a tool that lets you see exactly what tasks are taking the longest. It's the most basic troubleshooting tool and if you ask for help regarding lag you will most likely be asked for your timings.
-
-To get timings of your server you just need to execute the `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
   
-## spark
-[Spark](https://github.com/lucko/spark) is a plugin that allows you to profile your servers CPU and memory usage. You can read on how to use it [on its wiki](https://spark.lucko.me/docs/). There's also a guide on how to find the cause of lag spikes [here](https://spark.lucko.me/docs/guides/Finding-lag-spikes).
+## Spark
+[Spark](https://spark.lucko.me/) is a plugin that allows you to profile your server's CPU and memory usage. You can read on how to use it [on its wiki](https://spark.lucko.me/docs/). There's also a guide on how to find the cause of lag spikes [here](https://spark.lucko.me/docs/guides/Finding-lag-spikes).
 
+## Timings
+Way to see what might be going on when your server is lagging are Timings. Timings is a tool that lets you see exactly what tasks are taking the longest. It's the most basic troubleshooting tool and if you ask for help regarding lag you will most likely be asked for your Timings. Timings is known to have a serious performance impact on servers, it's recommended to use the Spark plugin over Timings and use Purpur or Pufferfish to disable Timings all together.
+
+To get Timings of your server, you just need to execute the `/timings paste` command and click the link you're provided with. You can share this link with other people to let them help you. It's also easy to misread if you don't know what you're doing. There is a detailed [video tutorial by Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) on how to read them.
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
 [server.properties]: https://minecraft.fandom.com/wiki/Server.properties
@@ -583,3 +623,4 @@ To get timings of your server you just need to execute the `/timings paste` comm
 [paper-world configuration]: https://docs.papermc.io/paper/reference/world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
 [pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
+[Petal]: https://github.com/Bloom-host/Petal
