@@ -65,19 +65,19 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 
 ### [server.properties]
 
-#### simulation-distance
+#### view-distance
 
 `Good starting value: 4`
 
-Simulation distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `view-distance`. This allows to load more chunks without ticking them. This effectively allows players to see further without the same performance impact.
+View distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `simulation-distance`. This allows to load more chunks without ticking them. This effectively allows players to see further without the same performance impact.
 
-#### view-distance
+#### simulation-distance
 
 `Good starting value: 7`
 
 This is the distance in chunks that will be sent to players, similar to no-tick-view-distance from paper.
 
-The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
+The total view distance will be equal to the greatest value between `view-distance` and `simulation-distance`. For example, if the view distance is 4, and the simulation distance is set to 12, the total distance sent to the client will be 12 chunks.
 
 ### [spigot.yml]
 
@@ -263,7 +263,7 @@ Good starting values:
         soft: 30
 ```
 
-Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual simulation-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper-world configuration]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(simulation-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
+Lets you adjust entity despawn ranges (in blocks). Lower those values to clear the mobs that are far away from the player faster. You should keep soft range around `30` and adjust hard range to a bit more than your actual view-distance, so mobs don't immediately despawn when the player goes just beyond the point of a chunk being loaded (this works well because of `delay-chunk-unloads-by` in [paper-world configuration]). When a mob is out of the hard range, it will be instantly despawned. When between the soft and hard range, it will have a random chance of despawning. Your hard range should be larger than your soft range. You should adjust this according to your view distance using `(view-distance * 16) + 8`. This partially accounts for chunks that haven't been unloaded yet after player visited them.
 
 #### per-player-mob-spawns
 
