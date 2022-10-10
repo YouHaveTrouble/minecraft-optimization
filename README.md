@@ -343,18 +343,6 @@ Defines the slowest amount entities farthest from players will be ticked. Increa
 
 Controls the gradient in which mobs are ticked. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms. If enabling DAB breaks mob farms, try increasing this value.
 
-#### enable-async-entity-tracker
-
-`Good starting value: true`
-
-Enables the asynchronous entity tracker patch made by [Petal].
-
-#### enable-async-pathfinding
-
-`Good starting value: true`
-
-Enables the asynchronous pathfinding patch made by [Petal].
-
 #### enable-async-mob-spawning
 
 `Good starting value: true`
