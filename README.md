@@ -375,12 +375,6 @@ Enabling this will cause zombies to stop targeting villagers if the server is be
 
 This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread. This has the side effect of entities not being able to go through portals.
 
-#### villager.brain-ticks
-
-`Good starting value: 2`
-
-This option allows you to set how often (in ticks) villager brains (work and poi) will tick. Going higher than `3` is confirmed to make villagers inconsistent/buggy.
-
 #### villager.lobotomize.enabled
 
 `Good starting value: true`
