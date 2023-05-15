@@ -387,6 +387,15 @@ Lobotomized villagers are stripped from their AI and only restock their offers e
 
 ## Misc
 
+### [server.properties]
+
+#### max-chained-neighbor-updates
+
+`Good starting value: 10000`
+
+Limiting the amount of consecutive neighbor updates before skipping additional ones. Negative values remove the limit.
+This configuration can mitigate some lag machines.
+
 ### [spigot.yml]
 
 #### merge-radius
@@ -530,6 +539,26 @@ Time in ticks after which arrows shot by players in creative mode should disappe
 `Good starting value: true`
 
 This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
+
+#### entity_timeouts
+
+```
+Good starting values:
+  SNOWBALL: 200
+  LLAMA_SPIT: 200
+  DRAGON_FIREBALL: 200
+  EGG: 200
+  ENDER_PEARL: 600
+  EXPERIENCE_BOTTLE: 200
+  FIREBALL: 200
+  POTION: 200
+  SHULKER_BULLET: 600
+  SMALL_FIREBALL: 200
+  WITHER_SKULL: 200
+```
+
+These values define a entity's maximum lifespan. If an entity is in this list and it has survived for longer than that number of ticks, then it will be removed. Setting a value to -1 disables this feature.
+This configuration can mitigate some lag machines.
 
 ### [purpur.yml]
 
