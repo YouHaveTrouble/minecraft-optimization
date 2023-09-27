@@ -569,7 +569,7 @@ To get timings of your server you just need to execute the `/timings paste` comm
 
 
 [`SOG`]: https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/
-[server.properties]: https://minecraft.fandom.com/wiki/Server.properties
+[server.properties]: https://minecraft.wiki/w/Server.properties
 [bukkit.yml]: https://bukkit.fandom.com/wiki/Bukkit.yml
 [spigot.yml]: https://www.spigotmc.org/wiki/spigot-configuration/
 [paper.yml]:  https://docs.papermc.io/paper/reference/paper-global-configuration
