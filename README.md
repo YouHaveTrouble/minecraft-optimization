@@ -238,28 +238,28 @@ You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do n
 Good starting values:
 
       ambient:
-        hard: 56
+        hard: 72
         soft: 30
       axolotls:
-        hard: 56
+        hard: 72
         soft: 30
       creature:
-        hard: 56
+        hard: 72
         soft: 30
       misc:
-        hard: 56
+        hard: 72
         soft: 30
       monster:
-        hard: 56
+        hard: 72
         soft: 30
       underground_water_creature:
-        hard: 56
+        hard: 72
         soft: 30
       water_ambient:
-        hard: 56
+        hard: 72
         soft: 30
       water_creature:
-        hard: 56
+        hard: 72
         soft: 30
 ```
 
