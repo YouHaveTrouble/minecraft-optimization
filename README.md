@@ -513,7 +513,7 @@ Time in ticks between container updates. Increasing this might help if container
 
 #### tick-rates.wet-farmland
 
-`Good starting value: 4`
+`Good starting value: 2`
 
 Time in ticks between the server trying to dry wet-farmland. Wet farmland slowly drying out does not significantly impact gameplay. Increasing this value can help reduce lag caused by farmland.
 
