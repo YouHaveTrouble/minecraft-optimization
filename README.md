@@ -511,6 +511,12 @@ Time in ticks between the server trying to spread grass or mycelium. This will m
 
 Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
 
+#### tick-rates.wet-farmland
+
+`Good starting value: 4`
+
+Time in ticks between the server trying to dry wet-farmland. Wet farmland slowly drying out does not significantly impact gameplay. Increasing this value can help reduce lag caused by farmland.
+
 #### non-player-arrow-despawn-rate
 
 `Good starting value: 20`
