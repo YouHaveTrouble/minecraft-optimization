@@ -427,7 +427,7 @@ Good starting values:
         red_sand: 300
         gravel: 300
         dirt: 300
-        grass: 300
+        short_grass: 300
         pumpkin: 300
         melon_slice: 300
         kelp: 300
