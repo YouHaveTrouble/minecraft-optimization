@@ -46,7 +46,7 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 `Good starting value: 256`
 
-This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
+This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to `-1` disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (`-1`) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
 ### [purpur.yml]
 
@@ -77,7 +77,7 @@ Simulation distance is distance in chunks around the player that the server will
 
 This is the distance in chunks that will be sent to players, similar to no-tick-view-distance from paper.
 
-The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
+The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to `4`, and the view distance is 12, the total distance sent to the client will be 12 chunks.
 
 ### [spigot.yml]
 
@@ -186,7 +186,7 @@ This option sets how often (in ticks) the server attempts to spawn certain livin
 
 `Good starting value: 3`
 
-Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [bukkit.yml]'s `spawn-limits`. Setting this lower will make it feel as if there are more mobs around you. This should be lower than or equal to your simulation distance, and never larger than your hard despawn range / 16.
+Allows you to reduce the range (in chunks) of where mobs will spawn around the player. Depending on your server's gamemode and its playercount you might want to reduce this value along with [bukkit.yml]'s `spawn-limits`. Setting this lower will make it feel as if there are more mobs around you. This should be lower than or equal to your simulation distance, and never larger than your `[hard despawn-range] / 16`.
 
 #### entity-activation-range
 
@@ -347,7 +347,7 @@ Controls the gradient in which mobs are ticked. Decreasing this will activate DA
 
 `Good starting value: true`
 
-If asynchronous mob spawning should be enabled. For this to work, the Paper's per-player-mob-spawns setting must be enabled. This option does not actually spawn mobs asynchronous, but does offload much of the computational effort involved with spawning new mobs to a different thread. Enabling this option should not be noticeable on vanilla gameplay.
+If asynchronous mob spawning should be enabled. For this to work, the Paper's `per-player-mob-spawns` setting must be enabled. This option does not actually spawn mobs asynchronous, but does offload much of the computational effort involved with spawning new mobs to a different thread. Enabling this option should not be noticeable on vanilla gameplay.
 
 #### enable-suffocation-optimization
 
@@ -571,7 +571,7 @@ If this option is greater that `0`, players above the set y level will be damage
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative JVM implementations.
 It's recommended to use the [flags.sh](https://flags.sh) startup flags generator to get the correct startup flags for your server
 
-In addition, adding the beta flag `--add-modules=jdk.incubator.vector` before `-jar` in your startup flags can improve performance. This flag enables Pufferfish to use SIMD instructions on your CPU, making some maths faster. Currently, it's only used for making rendering in game plugin maps (like imageonmaps) possibly 8 times faster.
+In addition, adding the beta flag `--add-modules=jdk.incubator.vector` before `-jar` in your startup flags can improve performance. This flag enables Pufferfish to use SIMD instructions on your CPU, making some maths faster. Currently, it's only used for making rendering in game plugin maps (like ImageOnMap) possibly 8 times faster.
 
 # "Too good to be true" plugins
 
