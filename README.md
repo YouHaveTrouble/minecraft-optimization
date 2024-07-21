@@ -453,6 +453,7 @@ Good starting values:
         acacia_leaves: 300
         dark_oak_leaves: 300
         mangrove_leaves: 300
+        cherry_leaves: 300
         cactus: 300
         diorite: 300
         granite: 300
