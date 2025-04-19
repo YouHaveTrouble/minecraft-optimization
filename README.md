@@ -95,12 +95,6 @@ This value overwrites server.properties one if not set to `default`. You should 
 
 This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
 
-#### max-auto-save-chunks-per-tick
-
-`Good starting value: 8`
-
-Lets you slow down incremental world saving by spreading the task over time even more for better average performance. You might want to set this higher than `8` with more than 20-30 players. If incremental save can't finish in time then bukkit will automatically save leftover chunks at once and begin the process again.
-
 #### prevent-moving-into-unloaded-chunks
 
 `Good starting value: true`
