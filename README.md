@@ -124,7 +124,8 @@ Good starting values:
     fireball: 8
     firework_rocket: 8
     llama_spit: 3
-    potion: 8
+    splash_potion: 8
+    lingering_potion: 8
     shulker_bullet: 8
     small_fireball: 8
     snowball: 8
