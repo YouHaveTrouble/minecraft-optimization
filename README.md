@@ -18,14 +18,13 @@ Your choice of server software can make a huge difference in performance and API
 
 Recommended top picks:
 * [Paper](https://github.com/PaperMC/Paper) - The most popular server software that aims to improve performance while fixing gameplay and mechanics inconsistencies.
-* [Pufferfish](https://github.com/pufferfish-gg/Pufferfish) - Paper fork that aims to further improve server performance.
-* [Purpur](https://github.com/PurpurMC/Purpur) - Pufferfish fork focused on features and the freedom of customization.
+* [Purpur](https://github.com/PurpurMC/Purpur) - Paper fork focused on features and the freedom of customization.
 
 You should stay away from:
 * Any paid server JAR that claims async anything - 99.99% chance of being a scam.
 * Bukkit/CraftBukkit/Spigot - Extremely outdated in terms of performance compared to other server software you have access to.
 * Any plugin/software that enables/disables/reloads plugins on runtime. See [this section](#plugins-enablingdisabling-other-plugins) to understand why.
-* Many forks further downstream from Pufferfish or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
+* Many forks further downstream from Paper or Purpur will encounter instability and other issues. If you're seeking more performance gains, optimize your server or invest in a personal private fork.
 
 ## Map pregen
 Map pregeneration, thanks to various optimizations to chunk generation added over the years is now only useful on servers with terrible, single threaded, or limited CPUs. Though, pregeneration is commonly used to generate chunks for world-map plugins such as Pl3xMap or Dynmap.
@@ -131,15 +130,6 @@ Good starting values:
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
-### [pufferfish.yml]
-
-#### max-loads-per-projectile
-
-`Good starting value: 8`
-
-Specifies the maximum amount of chunks a projectile can load in its lifetime. Decreasing will reduce chunk loads caused by entity projectiles, but could cause issues with tridents, enderpearls, etc.
-
----
 
 ## Mobs
 
@@ -316,47 +306,7 @@ Good starting values:
       nearestlivingentitysensor: 40
 ```
 
-> It is not recommended to change these values from their defaults while [Pufferfish's DAB](#dabenabled) is enabled!
-
 This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
-
-### [pufferfish.yml]
-
-#### dab.enabled
-
-`Good starting value: true`
-
-DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [dab.activation-dist-mod](#dabactivation-dist-mod).
-
-#### dab.max-tick-freq
-
-`Good starting value: 20`
-
-Defines the slowest amount entities farthest from players will be ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior. If enabling DAB breaks mob farms, try decreasing this value.
-
-#### dab.activation-dist-mod
-
-`Good starting value: 7`
-
-Controls the gradient in which mobs are ticked. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms. If enabling DAB breaks mob farms, try increasing this value.
-
-#### enable-async-mob-spawning
-
-`Good starting value: true`
-
-If asynchronous mob spawning should be enabled. For this to work, the Paper's per-player-mob-spawns setting must be enabled. This option does not actually spawn mobs asynchronous, but does offload much of the computational effort involved with spawning new mobs to a different thread. Enabling this option should not be noticeable on vanilla gameplay.
-
-#### enable-suffocation-optimization
-
-`Good starting value: true`
-
-This option optimises a suffocation check (the check to see if a mob is inside a block and if they should take suffocation damage), by rate limiting the check to the damage timeout. This optimisation should be impossible to notice unless you're an extremely technical player who's using tick-precise timing to kill an entity at exactly the right time by suffocation.
-
-#### inactive-goal-selector-throttle
-
-`Good starting value: true`
-
-Throttles the AI goal selector in entity inactive ticks, causing the inactive entities to update their goal selector every 20 ticks instead of every tick. Can improve performance by a few percent, and has minor gameplay implications.
 
 ### [purpur.yml]
 
@@ -532,13 +482,6 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
-### [pufferfish.yml]
-
-#### disable-method-profiler
-
-`Good starting value: true`
-
-This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
 
 ### [purpur.yml]
 
@@ -580,7 +523,6 @@ If this option is greater that `0`, players above the set y level will be damage
 Your garbage collector can be configured to reduce lag spikes caused by big garbage collector tasks. You can find startup flags optimized for Minecraft servers [here](https://docs.papermc.io/paper/aikars-flags) [`SOG`]. Keep in mind that this recommendation will not work on alternative JVM implementations.
 It's recommended to use the [flags.sh](https://flags.sh) startup flags generator to get the correct startup flags for your server
 
-In addition, adding the beta flag `--add-modules=jdk.incubator.vector` before `-jar` in your startup flags can improve performance. This flag enables Pufferfish to use SIMD instructions on your CPU, making some maths faster. Currently, it's only used for making rendering in game plugin maps (like imageonmaps) possibly 8 times faster.
 
 # "Too good to be true" plugins
 
@@ -618,4 +560,3 @@ To see how to fix exploits that can cause lag spikes or crashes on a Minecraft s
 [paper-global configuration]: https://docs.papermc.io/paper/reference/global-configuration
 [paper-world configuration]: https://docs.papermc.io/paper/reference/world-configuration
 [purpur.yml]: https://purpurmc.org/docs/Configuration/
-[pufferfish.yml]: https://docs.pufferfish.host/setup/pufferfish-fork-configuration/
