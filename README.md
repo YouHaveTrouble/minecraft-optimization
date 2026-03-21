@@ -2,7 +2,7 @@
 
 Note for users that are on vanilla, Fabric or Spigot (or anything below Paper) - go to your server.properties and change `sync-chunk-writes` to `false`. This option is forcibly set to false on Paper and its forks, but on other server implementations you need to switch this to false manually. This allows the server to save chunks off the main thread, lessening the load on the main tick loop.
 
-Guide for version 1.21.5. Some things may still apply to 1.15 - 1.21.4.
+Guide for version 1.21.11. Some things may still apply to 1.15 - 1.21.10.
 
 Based on [this guide](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) and other sources (all of them are linked throughout the guide when relevant).
 
@@ -262,7 +262,7 @@ This option decides if mob spawns should account for how many mobs are around ta
 
 `Good starting value: 2`
 
-Overwrites option with the same name in [spigot.yml]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inability to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
+Lets you decide how many collisions one entity can process at once. Value of `0` will cause inability to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
 
 #### update-pathfinding-on-block-update
 
