@@ -530,7 +530,7 @@ It's recommended to use the [flags.sh](https://flags.sh) startup flags generator
 Absolutely unnecessary since they can be replaced with [merge-radius](#merge-radius) and [alt-item-despawn-rate](#alt-item-despawn-rate) and frankly, they're less configurable than basic server configs. They tend to use more resources scanning and removing items than not removing the items at all.
 
 ## Mob stacker plugins
-It's really hard to justify using one. Stacking naturally spawned entities causes more lag than not stacking them at all due to the server constantly trying to spawn more mobs. The only "acceptable" use case is for spawners on servers with a large amount of spawners.
+Using a mob stacker plugin is significant for servers having high usage from ticking entities, specially if you have a lot of farms or mob spawners. If your server has a lot of those, using a mob stacker is essential to prevent crowding of entities. Don't rely on players cleaning up their farms, as staying afk for long can overcrowd your server in one night and significantly reduce TPS. A good updated free mob stacker from a well known developer is [MobStacker by iChoco](https://www.spigotmc.org/resources/mobstacker.106631/) a more advanced alternative can be [MobStacker by LinsaFTW](https://builtbybit.com/resources/mobstacker-optimize-server-performance.23141/).
 
 ## Plugins enabling/disabling other plugins
 Anything that enables or disables plugins on runtime is extremely dangerous. Loading a plugin like that can cause fatal errors with tracking data and disabling a plugin can lead to errors due to removing dependency. The `/reload` command suffers from exact same issues and you can read more about them in [me4502's blog post](https://madelinemiller.dev/blog/problem-with-reload/)
