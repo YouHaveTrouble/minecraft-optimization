@@ -39,6 +39,9 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ## Networking
 
+<details>
+<summary>server.properties</summary>
+
 ### [server.properties]
 
 #### network-compression-threshold
@@ -46,6 +49,11 @@ It's key to remember that the overworld, nether and the end have separate world 
 `Good starting value: 256`
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
+
+</details>
+
+<details>
+<summary>purpur.yml</summary>
 
 ### [purpur.yml]
 
@@ -58,9 +66,14 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 > Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
 ~ https://purpurmc.org/docs/Configuration/#use-alternate-keepalive
 
+</details>
+
 ---
 
 ## Chunks
+
+<details>
+<summary>server.properties</summary>
 
 ### [server.properties]
 
@@ -77,6 +90,11 @@ Simulation distance is distance in chunks around the player that the server will
 This is the distance in chunks that will be sent to players, similar to no-tick-view-distance from paper.
 
 The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
+
+</details>
+
+<details>
+<summary>spigot.yml</summary>
 
 ### [spigot.yml]
 
