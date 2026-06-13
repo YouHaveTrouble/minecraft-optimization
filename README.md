@@ -41,13 +41,21 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ### [server.properties]
 
+<details open>
+<summary>Details (Click to toggle)</summary>
+
 #### network-compression-threshold
 
 `Good starting value: 256`
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
+</details>
+
 ### [purpur.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### use-alternate-keepalive
 
@@ -58,11 +66,16 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 > Enabling this sends a keepalive packet once per second to a player, and only kicks for timeout if none of them were responded to in 30 seconds. Responding to any of them in any order will keep the player connected. AKA, it won't kick your players because 1 packet gets dropped somewhere along the lines  
 ~ https://purpurmc.org/docs/Configuration/#use-alternate-keepalive
 
+</details>
+
 ---
 
 ## Chunks
 
 ### [server.properties]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### simulation-distance
 
@@ -78,7 +91,12 @@ This is the distance in chunks that will be sent to players, similar to no-tick-
 
 The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
 
+</details>
+
 ### [spigot.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### view-distance
 
@@ -86,7 +104,12 @@ The total view distance will be equal to the greatest value between `simulation-
 
 This value overwrites server.properties one if not set to `default`. You should keep it default to have both simulation and view distance in one place for easier management.
 
+</details>
+
 ### [paper-world configuration]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### delay-chunk-unloads-by
 
@@ -130,10 +153,14 @@ Good starting values:
 
 With the help of this entry you can set limits to how many entities of specified type can be saved. You should provide a limit for each projectile at least to avoid issues with massive amounts of projectiles being saved and your server crashing on loading that. You can put any entity id here, see the minecraft wiki to find IDs of entities. Please adjust the limit to your liking. Suggested value for all projectiles is around `10`. You can also add other entities by their type names to that list. This config option is not designed to prevent players from making large mob farms.
 
+</details>
 
 ## Mobs
 
 ### [bukkit.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### spawn-limits
 
@@ -167,7 +194,12 @@ Good starting values:
 
 This option sets how often (in ticks) the server attempts to spawn certain living entities. Water/ambient mobs do not need to spawn each tick as they don't usually get killed that quickly. As for monsters: Slightly increasing the time between spawns should not impact spawn rates even in mob farms. In most cases all of the values under this option should be higher than `1`. Setting this higher also allows your server to better cope with areas where mob spawning is disabled.
 
+</details>
+
 ### [spigot.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### mob-spawn-range
 
@@ -217,7 +249,12 @@ This allows you to control whether villagers should be ticked outside of the act
 
 You can make mobs spawned by a monster spawner have no AI. Nerfed mobs will do nothing. You can make them jump while in water by changing `spawner-nerfed-mobs-should-jump` to `true` in [paper-world configuration].
 
+</details>
+
 ### [paper-world configuration]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### despawn-ranges
 
@@ -308,7 +345,12 @@ Good starting values:
 
 This decides how often specified behaviors and sensors are being fired in ticks. `acquirepoi` for villagers seems to be the heaviest behavior, so it's been greately increased. Decrease it in case of issues with villagers finding their way around.
 
+</details>
+
 ### [purpur.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### zombie.aggressive-towards-villager-when-lagging
 
@@ -341,11 +383,16 @@ Good starting values:
 
 Radius within which villagers will search for job site blocks and beds. This significantly boosts performance with large amount of villagers, but will prevent them from detecting job site blocks or beds that are further away than set value.
 
+</details>
+
 ---
 
 ## Misc
 
 ### [spigot.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### merge-radius
 
@@ -370,7 +417,12 @@ Time in ticks that hoppers will wait to move an item. Increasing this will help 
 
 Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and item sorting systems relying on water streams.
 
+</details>
+
 ### [paper-world configuration]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### alt-item-despawn-rate
 
@@ -482,8 +534,12 @@ Time in ticks after which arrows shot by mobs should disappear after hitting som
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
+</details>
 
 ### [purpur.yml]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### dolphin.disable-treasure-searching
 
@@ -497,11 +553,16 @@ Prevents dolphins from performing structure search similar to treasure maps
 
 Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
 
+</details>
+
 ---
 
 ## Helpers
 
 ### [paper-world configuration]
+
+<details open>
+<summary>Details (Click to toggle)</summary>
 
 #### anti-xray.enabled
 
@@ -514,6 +575,8 @@ Enable this to hide ores from x-rayers. For detailed configuration of this featu
 `Good starting value: 127`
 
 If this option is greater that `0`, players above the set y level will be damaged as if they were in the void. This will prevent players from using the nether roof. Vanilla nether is 128 blocks tall, so you should probably set it to `127`. If you modify the height of the nether in any way you should set this to `[your_nether_height] - 1`.
+
+</details>
 
 ---
 
