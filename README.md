@@ -39,13 +39,15 @@ It's key to remember that the overworld, nether and the end have separate world 
 
 ## Networking
 
-### [server.properties]
+<details open>
+<summary><h3>server.properties</h3></summary>
 
 #### network-compression-threshold
 
 `Good starting value: 256`
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
+</details>
 
 ### [purpur.yml]
 
